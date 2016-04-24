@@ -8,12 +8,24 @@ module.exports = function(app) {
   });
 
   router.get('/raffles', function(req, res) {
-    res.render('raffles');
+    console.log("happy smiley");
+    var Raffle = app.models.raffle;
+
+    Raffle.find().then(function(result){
+      console.log(result);
+
+      res.render('raffles', {
+        raffles: result
+      });
+    });
+
   });
 
   router.post('/raffles', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
+    console.log("happy smiley");
+    var Raffle = app.models.raffle;
 
     app.models.User.login({
       email: email,
@@ -28,10 +40,16 @@ module.exports = function(app) {
 
       token = token.toJSON();
 
-      res.render('raffles', {
-        username: token.user.username,
-        accessToken: token.id
+      Raffle.find().then(function(result){
+        console.log(result);
+
+        res.render('raffles', {
+          raffles: result,
+          username: token.user.username,
+          accessToken: token.id
+        });
       });
+
     });
   });
 

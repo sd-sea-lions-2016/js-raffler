@@ -14,8 +14,7 @@ module.exports = function(app) {
 
     // create raffle 1 and make john the owner
     users[0].raffles.create({
-      name: 'raffle1',
-      balance: 100
+      date: new Date()
     }, function(err, raffle) {
       if (err) throw err;
 
@@ -25,8 +24,7 @@ module.exports = function(app) {
 
     //create raffle 2 and make jane the owner
     users[1].raffles.create({
-      name: 'raffle2',
-      balance: 100
+      date: new Date()
     }, function(err, raffle) {
       if (err) throw err;
 
