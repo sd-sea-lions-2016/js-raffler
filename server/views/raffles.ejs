@@ -20,7 +20,7 @@
         <th>Winners</th>
       </tr>
 
-      <% for ( var i = 0; i < raffles.length; i++) { %>
+      <% for ( var i = raffles.length - 1; i >= 0; i--) { %>
       <tr><td><%= raffles[i].date %></td><td>winners</td></tr>
       <% } %>
 
