@@ -8,9 +8,11 @@
   <h1>JS Raffler<% if (typeof username !== 'undefined') { %> - Welcome <%=
       username %><% } %></h1>
 
+      <% if (typeof username !== 'undefined') { %>
       <form action='/new_raffle'>
         <input type="submit" name="submit" value="New Raffle">
       </form>
+      <% } %>
 
     <table border=1 cellpadding=5>
       <tr>
