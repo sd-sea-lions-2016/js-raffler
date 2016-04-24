@@ -9,7 +9,7 @@
       username %><% } %></h1>
 
       <% if (typeof username !== 'undefined') { %>
-      <form action='/new_raffle'>
+      <form action='/raffles' method="post">
         <input type="submit" name="submit" value="New Raffle">
       </form>
       <% } %>

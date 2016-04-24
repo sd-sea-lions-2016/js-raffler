@@ -1,4 +1,9 @@
 module.exports = function(Raffle) {
+  Raffle.afterInitialize = function() {
+    this.date = new Date();
+  }
+
+
   // listRaffles
   Raffle.listRaffles = function(cb) {
     Raffle.find({

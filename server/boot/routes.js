@@ -18,8 +18,21 @@ module.exports = function(app) {
         raffles: result
       });
     });
-
   });
+
+  router.post('/raffles', function(req, res) {
+    console.log("happy smiley");
+    var Raffle = app.models.raffle;
+
+    Raffle.create().then(function(result){
+      console.log(result);
+
+      res.render('new', {
+        raffle: result
+      });
+    });
+  });
+
 
   router.post('/login', function(req, res) {
     var email = req.body.email;
