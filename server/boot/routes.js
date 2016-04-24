@@ -21,7 +21,7 @@ module.exports = function(app) {
 
   });
 
-  router.post('/raffles', function(req, res) {
+  router.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
     console.log("happy smiley");
