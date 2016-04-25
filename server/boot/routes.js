@@ -40,12 +40,19 @@ module.exports = function(app) {
     console.log(id);
 
     var Raffle = app.models.raffle;
+    var Entrant = app.models.entrant;
 
     Raffle.findById(id).then(function(result){
       console.log(result);
+      var raffle = result;
 
-      res.render('show', {
-        raffle: result
+      Entrant.find({where: {raffleId: result.id}}).then(function(result){
+        var entrants = result;
+        console.log(entrants)
+        res.render('show', {
+          raffle: raffle,
+          entrants: entrants
+        });
       });
     });
   });
