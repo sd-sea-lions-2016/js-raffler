@@ -1,12 +1,32 @@
 <h1>you are going to the show!!!</h1>
 
+<a href="/raffles">Raffles</a>
+
 <%= raffle.id %>
 <%= raffle.date %>
+<form action="/raffles/<%= raffle.id %>/run" method="get">
+  <input type="submit" name="submit" value="submit">
+</form>
+
+<% if (typeof(alert) != 'undefined') { %>
+  <p><%= alert %></p>
+<% } %>
 
 <ul>
-<% for ( var i = entrants.length - 1; i >= 0; i--) { %>
-<li><%= entrants[i].username %></li>
-<% } %>
+  <lh>Eligible Entrants</lh>
+  <% for ( var i = entrants.length - 1; i >= 0; i--) { %>
+    <li><%= entrants[i].username %></li>
+  <% } %>
 </ul>
 
+<% if (typeof(winner) != 'undefined') { %>
+  <p>Current Winner: <%= winner.username %></p>
+<% } %>
+
+<ul>
+  <lh>Winners Previous Rounds</lh>
+  <% for ( var i = previous_winners.length - 1; i >= 0; i--) { %>
+    <li><%= previous_winners[i].username %></li>
+  <% } %>
+</ul>
 

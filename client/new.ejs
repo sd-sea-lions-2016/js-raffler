@@ -17,6 +17,10 @@
       <input type="text" name="username">
     </form>
 
+    <form action="/raffles/<%= raffle.id %>/run" method="get">
+      <input type="submit" name="submit" value="submit">
+    </form>
+
     <h2>Entrants</h2>
     <ul id="entrants-list">
     </ul>
