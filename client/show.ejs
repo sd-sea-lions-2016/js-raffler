@@ -32,12 +32,12 @@
 <% } %>
 
 <% if (typeof(previous_winners) != 'undefined' && previous_winners) { %>
-  <ol reversed>
+  <ul reversed>
     <lh>Winners in Previous Rounds:</lh>
     <% for ( var i = 0; i < previous_winners.length; i++) { %>
       <li><%= previous_winners[i].username %></li>
     <% } %>
-  </ol>
+  </ul>
 <% } %>
 
 <% if (raffle.active == true) { %>
