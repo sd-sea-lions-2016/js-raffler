@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
+    </script>
+    <script src="application.js"></script>
+    <title>JS Raffler</title>
+  </head>
+  <body>
+
+    <h1>Raffle Registrations</h1>
+
+    <p>Date Opened: <span><%= raffle.date %></span></p>
+
+    <p>
+      <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post">
+        <input type="text" name="username" placeholder="Enter participant username" autofocus>
+        <input type="submit" name="new-username-submit" value="Register Participant">
+      </form>
+    </p>
+
+    <p>
+      <form class="entrants" id="start-first-round" action="/raffles/<%= raffle.id %>" method="get">
+        <input type="submit" name="submit" value="Start First Round">
+      </form>
+    </p>
+
+    <h3 class="entrants">Registered Raffle Entrants</h3>
+    <ul class="entrants" id="entrants-list">
+    </ul>
+
+    <% if (raffle.active == true) { %>
+      
+      <form action="/raffles/<%= raffle.id %>/end" method="post">
+        <input type="submit" name="submit" value="End Raffle">
+      </form>
+      
+    <% } else { %>
+      
+      <form action="/raffles" method="get">
+        <input type="submit" name="submit" value="Exit Raffle">
+      </form>
+
+    <% } %>
+
+  </body>
+</html>

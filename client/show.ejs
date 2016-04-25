@@ -1,0 +1,55 @@
+<p>Raffle #: <%= raffle.id %></p>
+<p>Date: <span><%= raffle.date %></span></p>
+
+<% if (raffle.active == true) { %>
+  <form action="/raffles/<%= raffle.id %>" method="get">
+    <input type="submit" name="submit" value="Start Next Raffle Round">
+  </form>
+<% } %>
+
+<% if (typeof(alert) != 'undefined' && alert) { %>
+  <strong><%= alert %></strong>
+<% } %>
+
+<% if (typeof(entrants) != 'undefined' && entrants && entrants.length > 0) { %>
+  <ul>
+    <% if (raffle.active == true) { %>
+      <lh>Eligible Entrants From This Round:</lh>
+    <% } else { %>
+      <lh>Eligible Entrants At End of Raffle:</lh>
+    <% } %>
+
+    <% for ( var i = entrants.length - 1; i >= 0; i--) { %>
+        <% if (typeof(winner) != 'undefined' && winner === entrants[i]) { %>
+          <li><strong><%= entrants[i].username %></strong></li>
+        <% } else { %>
+          <li><%= entrants[i].username %></li>
+        <% } %>
+    <% } %>
+  </ul>
+<% } else { %>
+  <p>No registered entrants</p>
+<% } %>
+
+<% if (typeof(previous_winners) != 'undefined' && previous_winners) { %>
+  <ul reversed>
+    <lh>Winners in Previous Rounds:</lh>
+    <% for ( var i = 0; i < previous_winners.length; i++) { %>
+      <li><%= previous_winners[i].username %></li>
+    <% } %>
+  </ul>
+<% } %>
+
+<% if (raffle.active == true) { %>
+  
+  <form action="/raffles/<%= raffle.id %>/end" method="post">
+    <input type="submit" name="submit" value="End Raffle">
+  </form>
+  
+<% } else { %>
+  
+  <form action="/raffles" method="get">
+    <input type="submit" name="submit" value="Exit Raffle">
+  </form>
+
+<% } %>
