@@ -33,6 +33,22 @@ module.exports = function(app) {
     });
   });
 
+  router.get(/\/raffles\/\d+/, function(req, res) {
+    console.log("happy smiley with numbers");
+    var re = /raffles\/(\d+)/;
+    var id = req.url.match(re)[1];
+    console.log(id);
+
+    var Raffle = app.models.raffle;
+
+    Raffle.findById(id).then(function(result){
+      console.log(result);
+
+      res.render('show', {
+        raffle: result
+      });
+    });
+  });
 
   router.post('/login', function(req, res) {
     var email = req.body.email;
