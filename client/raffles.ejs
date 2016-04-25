@@ -2,27 +2,35 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>JS Raffler</title>
+    <title>SDJS Raffler</title>
   </head>
   <body>
-  <h1>JS Raffler<% if (typeof username !== 'undefined') { %> - Welcome <%=
-      username %><% } %></h1>
+  <h1>SDJS Raffler<% if (typeof username !== 'undefined') { %> - Welcome <%= username %><% } %></h1>
 
       <% if (typeof username !== 'undefined') { %>
-      <form action='/raffles' method="post">
-        <input type="submit" name="submit" value="New Raffle">
-      </form>
+        <form action='/raffles' method="post">
+          <input type="submit" name="submit" value="Create New Raffle">
+        </form>
+      <% } else { %>
+        <form action='/' method="get">
+          <input type="submit" name="submit" value="Login">
+        </form>
       <% } %>
+
+      <br>
 
     <table border=1 cellpadding=5>
       <tr>
-        <th>Raffles</th>
-        <th>Winners</th>
+        <th>ID</th>
+        <th>Past Raffles</th>
+        <th># Registered</th>
       </tr>
 
       <% for ( var i = raffles.length - 1; i >= 0; i--) { %>
-      <tr><td>
-        <a href="/raffles/<%= raffles[i].id %>"><%= raffles[i].date %></a></td><td>winners</td></tr>
+      <tr>
+        <td><%= raffles[i].id %></td>
+        <td><a href="/raffles/<%= raffles[i].id %>"><%= raffles[i].date %></a></td>
+        <td><%= raffles[i].entrants.length %></td></tr>
       <% } %>
 
     </table>
