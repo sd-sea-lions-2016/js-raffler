@@ -1,2 +1,1 @@
-#DBC SDJS Raffle Project
-
+DBC Final Project/Client project for SDJS - Prize Raffler
