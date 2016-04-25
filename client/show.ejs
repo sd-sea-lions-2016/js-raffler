@@ -1,6 +1,8 @@
 <p>Raffle #: <%= raffle.id %></p>
 <p>Date: <span><%= raffle.date %></span></p>
 
+<% console.log("Inside rendered show.ejs b"); %>
+
 <% if (raffle.active == true) { %>
   <form action="/raffles/<%= raffle.id %>/run" method="get">
     <input type="submit" name="submit" value="Start Next Raffle Round">
@@ -16,7 +18,7 @@
     <% if (raffle.active == true) { %>
       <lh>Eligible Entrants From This Round:</lh>
     <% } else { %>
-      <lh>Remaining Eligible Entrants:</lh>
+      <lh>Eligible Entrants At End of Raffle:</lh>
     <% } %>
 
     <% for ( var i = entrants.length - 1; i >= 0; i--) { %>
