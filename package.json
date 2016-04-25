@@ -1,6 +1,6 @@
 {
-  "name": "loopback-example-access-control",
-  "version": "1.0.0",
+  "name": "sdjs-raffler",
+  "version": "0.1.0",
   "main": "server/server.js",
   "scripts": {
     "pretest": "jshint .",
@@ -26,7 +26,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/strongloop/loopback-example-access-control"
-  },
-  "license": "MIT"
+    "url": "git://github.com/sd-sea-lions-2016/js-raffler/tree/develop"
+  }
 }
