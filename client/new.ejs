@@ -9,22 +9,40 @@
   </head>
   <body>
 
-    <h1>Create New Raffle</h1>
+    <h1>Raffle Registrations</h1>
 
-    <%= raffle.date %>
+    <p>Date Opened: <span><%= raffle.date %></span></p>
 
-    <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post">
-      <input type="text" name="username">
-    </form>
+    <p>
+      <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post">
+        <input type="text" name="username" placeholder="Enter participant username" autofocus>
+        <input type="submit" name="new-username-submit" value="Register Participant">
+      </form>
+    </p>
 
-    <form action="/raffles/<%= raffle.id %>/run" method="get">
-      <input type="submit" name="submit" value="submit">
-    </form>
+    <p>
+      <form class="entrants" id="start-first-round" action="/raffles/<%= raffle.id %>" method="get">
+        <input type="submit" name="submit" value="Start First Round">
+      </form>
+    </p>
 
-    <h2>Entrants</h2>
-    <ul id="entrants-list">
+    <h3 class="entrants">Registered Raffle Entrants</h3>
+    <ul class="entrants" id="entrants-list">
     </ul>
 
+    <% if (raffle.active == true) { %>
+      
+      <form action="/raffles/<%= raffle.id %>/end" method="post">
+        <input type="submit" name="submit" value="End Raffle">
+      </form>
+      
+    <% } else { %>
+      
+      <form action="/raffles" method="get">
+        <input type="submit" name="submit" value="Exit Raffle">
+      </form>
+
+    <% } %>
 
   </body>
 </html>

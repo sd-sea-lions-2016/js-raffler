@@ -8,112 +8,51 @@ module.exports = function(app) {
   });
 
   router.get('/raffles', function(req, res) {
-    console.log("happy smiley");
     var Raffle = app.models.raffle;
 
-    Raffle.find().then(function(result){
-      console.log(result);
-
+    Raffle.find().then(function(raffles){
       res.render('raffles', {
-        raffles: result
+        raffles: raffles
       });
     });
   });
 
   router.post('/raffles', function(req, res) {
-    console.log("happy smiley");
     var Raffle = app.models.raffle;
 
-    Raffle.create().then(function(result){
-      console.log(result);
-
+    Raffle.create().then(function(raffle){
+      // raffle is now active
+      raffle.updateAttribute('active', true);
       res.render('new', {
-        raffle: result
+        raffle: raffle
       });
     });
   });
 
-  router.get(/raffles\/\d+\/run/, function(req, res) {
-    console.log("happy smiley with winners");
-    var re = /raffles\/(\d+)\/run/;
+  router.post(/raffles\/\d+\/end/, function(req, res) {
+    console.log("Inside router.post /raffles/:id/end");
+    var re = /raffles\/(\d+)\/end/;
     var id = req.url.match(re)[1];
-    console.log("Raffle id: " + id);
-
     var Raffle = app.models.raffle;
-    var Entrant = app.models.entrant;
-    var raffle;
-    var eligible_entrants;
-    var winner;
-    var previous_winners;
-
-    var render_round = function() {
-      console.log("Inside render entrants");
-      res.render('show', {
-        raffle: raffle,
-        alert: "Round is over",
-        entrants: eligible_entrants,
-        winner: winner,
-        previous_winners: previous_winners
-      });
-    };
-
-    var get_eligible_entrants = function(result){
-      raffle = result;
-      Entrant.find({where: {and: [{raffleId: raffle.id}, {eligible: true}]}}).then(get_previous_winners);
-    };
-
-    var get_previous_winners = function(result){
-      eligible_entrants = result;
-      Entrant.find({where: {and: [{raffleId: raffle.id}, {eligible: false}]}}).then(get_winner);
-    };
-
-    var get_winner = function(result){
-      previous_winners = result;
-
-      if (eligible_entrants.length > 0){
-        var winner_index = Math.floor(Math.random() * eligible_entrants.length);
-        winner = eligible_entrants[winner_index];
-        console.log("Winner index: " + winner_index);
-        console.log("Winner name: " + winner.username);
-        winner.updateAttribute('eligible', false);
-      } else {
-        eligible_entrants = "No one left!"
-        winner = "Sorry, no more prizes. :(";
-      }
-
-      render_round();
-    };
-
-    Raffle.findById(id).then(get_eligible_entrants);
+    
+    Raffle.findById(id).then(function(raffle){
+      // Raffle is now closed/inactive
+      raffle.updateAttribute('active', false);    
+      Raffle.render_raffle(id, res);
+    });
   });
 
-  router.get(/\/raffles\/\d+/, function(req, res) {
-    console.log("happy smiley with numbers");
+  router.get(/raffles\/\d+/, function(req, res) {
+    console.log("inside router.get /raffles/:id");
     var re = /raffles\/(\d+)/;
     var id = req.url.match(re)[1];
-    console.log(id);
     var Raffle = app.models.raffle;
-    var Entrant = app.models.entrant;
-
-    Raffle.findById(id).then(function(result){
-      console.log(result);
-      var raffle = result;
-
-      Entrant.find({where: {raffleId: result.id}}).then(function(result){
-        var entrants = result;
-        console.log(entrants)
-        res.render('show', {
-          raffle: raffle,
-          entrants: entrants
-        });
-      });
-    });
+    Raffle.render_raffle(id, res);
   });
 
   router.post('/login', function(req, res) {
     var email = req.body.email;
     var password = req.body.password;
-    console.log("happy smiley");
     var Raffle = app.models.raffle;
 
     app.models.User.login({
