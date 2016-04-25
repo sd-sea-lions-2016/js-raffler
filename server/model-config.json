@@ -34,5 +34,9 @@
   "raffle": {
     "dataSource": "db",
     "public": true
+  },
+  "entrant": {
+    "dataSource": "db",
+    "public": true
   }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
+    </script>
+    <script src="application.js"></script>
+    <title>JS Raffler</title>
+  </head>
+  <body>
+
+    <h1>Create New Raffle</h1>
+
+    <%= raffle.date %>
+
+    <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post">
+      <input type="text" name="username">
+    </form>
+
+    <form action="/raffles/<%= raffle.id %>/run" method="get">
+      <input type="submit" name="submit" value="submit">
+    </form>
+
+    <h2>Entrants</h2>
+    <ul id="entrants-list">
+    </ul>
+
+
+  </body>
+</html>

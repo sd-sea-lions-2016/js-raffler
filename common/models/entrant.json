@@ -1,0 +1,29 @@
+{
+  "name": "entrant",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "username": {
+      "type": "string",
+      "required": true
+    },
+    "eligible": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "raffle": {
+      "type": "belongsTo",
+      "model": "raffle",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

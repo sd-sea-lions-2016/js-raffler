@@ -13,8 +13,13 @@
       "type": "belongsTo",
       "model": "user",
       "foreignKey": "ownerId"
+    },
+    "entrants": {
+      "type": "hasMany",
+      "model": "entrant",
+      "foreignKey": ""
     }
   },
   "acls": [],
-  "methods": []
+  "methods": {}
 }
