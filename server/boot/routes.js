@@ -20,51 +20,52 @@ module.exports = function(app) {
   router.post('/raffles', function(req, res) {
     var Raffle = app.models.raffle;
 
-    Raffle.create().then(function(result){
-      console.log(result);
-
+    Raffle.create().then(function(raffle){
+      // raffle is now active
+      raffle.updateAttribute('active', true);
       res.render('new', {
-        raffle: result
+        raffle: raffle
       });
     });
   });
 
-  router.get(/raffles\/\d+\/run/, function(req, res) {
-    var re = /raffles\/(\d+)\/run/;
+  router.get(/raffles\/\d+/, function(req, res) {
+    var re = /raffles\/(\d+)/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);
   });
 
   router.delete(/raffles\/\d+/, function(req, res) {
-    var re = /raffles\/(\d+)\/run/;
+    var re = /raffles\/(\d+)/;
     var id = req.url.match(re)[1];
 
+    // Raffle is now closed/inactive
     raffle.updateAttribute('active', false);
     Raffle.render_raffle(id, res);
   });
 
 
-  router.get(/\/raffles\/\d+/, function(req, res) {
-    var re = /raffles\/(\d+)/;
-    var id = req.url.match(re)[1];
-    var Raffle = app.models.raffle;
-    var Entrant = app.models.entrant;
+  // router.get(/\/raffles\/\d+/, function(req, res) {
+  //   var re = /raffles\/(\d+)/;
+  //   var id = req.url.match(re)[1];
+  //   var Raffle = app.models.raffle;
+  //   var Entrant = app.models.entrant;
 
-    Raffle.findById(id).then(function(result){
-      console.log(result);
-      var raffle = result;
+  //   Raffle.findById(id).then(function(result){
+  //     console.log(result);
+  //     var raffle = result;
 
-      Entrant.find({where: {raffleId: result.id}}).then(function(result){
-        var entrants = result;
-        console.log(entrants)
-        res.render('show', {
-          raffle: raffle,
-          entrants: entrants
-        });
-      });
-    });
-  });
+  //     Entrant.find({where: {raffleId: result.id}}).then(function(result){
+  //       var entrants = result;
+  //       console.log(entrants)
+  //       res.render('show', {
+  //         raffle: raffle,
+  //         entrants: entrants
+  //       });
+  //     });
+  //   });
+  // });
 
   router.post('/login', function(req, res) {
     var email = req.body.email;
