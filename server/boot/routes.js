@@ -29,43 +29,26 @@ module.exports = function(app) {
     });
   });
 
+  router.post(/raffles\/\d+\/end/, function(req, res) {
+    console.log("Inside router.post /raffles/:id/end");
+    var re = /raffles\/(\d+)\/end/;
+    var id = req.url.match(re)[1];
+    var Raffle = app.models.raffle;
+    
+    Raffle.findById(id).then(function(raffle){
+      // Raffle is now closed/inactive
+      raffle.updateAttribute('active', false);    
+      Raffle.render_raffle(id, res);
+    });
+  });
+
   router.get(/raffles\/\d+/, function(req, res) {
+    console.log("inside router.get /raffles/:id");
     var re = /raffles\/(\d+)/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);
   });
-
-  router.delete(/raffles\/\d+/, function(req, res) {
-    var re = /raffles\/(\d+)/;
-    var id = req.url.match(re)[1];
-
-    // Raffle is now closed/inactive
-    raffle.updateAttribute('active', false);
-    Raffle.render_raffle(id, res);
-  });
-
-
-  // router.get(/\/raffles\/\d+/, function(req, res) {
-  //   var re = /raffles\/(\d+)/;
-  //   var id = req.url.match(re)[1];
-  //   var Raffle = app.models.raffle;
-  //   var Entrant = app.models.entrant;
-
-  //   Raffle.findById(id).then(function(result){
-  //     console.log(result);
-  //     var raffle = result;
-
-  //     Entrant.find({where: {raffleId: result.id}}).then(function(result){
-  //       var entrants = result;
-  //       console.log(entrants)
-  //       res.render('show', {
-  //         raffle: raffle,
-  //         entrants: entrants
-  //       });
-  //     });
-  //   });
-  // });
 
   router.post('/login', function(req, res) {
     var email = req.body.email;

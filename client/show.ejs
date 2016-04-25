@@ -1,8 +1,6 @@
 <p>Raffle #: <%= raffle.id %></p>
 <p>Date: <span><%= raffle.date %></span></p>
 
-<% console.log("Inside rendered show.ejs b"); %>
-
 <% if (raffle.active == true) { %>
   <form action="/raffles/<%= raffle.id %>" method="get">
     <input type="submit" name="submit" value="Start Next Raffle Round">
@@ -44,8 +42,7 @@
 
 <% if (raffle.active == true) { %>
   
-  <form action="/raffles/<%= raffle.id %>" method="post">
-    <input type="hidden" name="_method" value="delete">
+  <form action="/raffles/<%= raffle.id %>/end" method="post">
     <input type="submit" name="submit" value="End Raffle">
   </form>
   

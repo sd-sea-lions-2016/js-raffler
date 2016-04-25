@@ -32,7 +32,6 @@ module.exports = function(Raffle) {
       var render_round = function() {
         console.log("Inside render_round");
         raffle.printID();
-        console.log("Inside render_round again");
         res.render('show', {
           raffle: raffle,
           alert: alert,
@@ -45,7 +44,6 @@ module.exports = function(Raffle) {
       var get_eligible_entrants = function(result){
         console.log("Inside get_eligible_entrants");
         raffle = result;
-        raffle.updateAttribute('active', true);
 
         Entrant.find({where: {and: [{raffleId: raffle.id}, {eligible: true}]}}).then(get_previous_winners);
       };
@@ -60,7 +58,7 @@ module.exports = function(Raffle) {
         console.log("Inside get_winner");
         previous_winners = (result && result.length > 0) ? result : null;
 
-        if (eligible_entrants && eligible_entrants.length > 0){
+        if (raffle.active && eligible_entrants && eligible_entrants.length > 0){
           var winner_index = Math.floor(Math.random() * eligible_entrants.length);
           winner = eligible_entrants[winner_index];
           console.log("Winner index: " + winner_index);
