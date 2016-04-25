@@ -1,7 +1,7 @@
 module.exports = function(Raffle) {
 
   var app;
-  
+
   Raffle.observe('before save', function(ctx, next) {
     if ( ctx.instance ) {
       // update on creation
@@ -64,10 +64,10 @@ module.exports = function(Raffle) {
           console.log("Winner index: " + winner_index);
           console.log("Winner name: " + winner.username);
           winner.updateAttribute('eligible', false);
-          alert = "" + winner.username + " has won this round!!!"
+          alert = "" + winner.username + " has won this round!!!";
         } else {
           raffle.updateAttribute('active', false);
-          alert = "Raffle is over."
+          alert = "Raffle is over.";
         }
 
         render_round();
@@ -75,7 +75,7 @@ module.exports = function(Raffle) {
 
       Raffle.findById(id).then(get_eligible_entrants);
     };
-  });  
+  });
 
 };
 
