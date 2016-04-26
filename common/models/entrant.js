@@ -5,8 +5,8 @@ module.exports = function(Entrant) {
   Entrant.disableRemoteMethod("updateAll", true);
   Entrant.disableRemoteMethod("updateAttributes", false);
 
-  Entrant.disableRemoteMethod("find", true);
-  Entrant.disableRemoteMethod("findById", true);
+  // Entrant.disableRemoteMethod("find", true);
+  // Entrant.disableRemoteMethod("findById", true);
   Entrant.disableRemoteMethod("findOne", true);
 
   Entrant.disableRemoteMethod("deleteById", true);
@@ -23,5 +23,7 @@ module.exports = function(Entrant) {
   Entrant.disableRemoteMethod('__findById__accessTokens', false);
   Entrant.disableRemoteMethod('__get__accessTokens', false);
   Entrant.disableRemoteMethod('__updateById__accessTokens', false);
+
+
 
 };

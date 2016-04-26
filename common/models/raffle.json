@@ -5,6 +5,11 @@
   "properties": {
     "date": {
       "type": "date"
+    },
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": true
     }
   },
   "validations": [],
