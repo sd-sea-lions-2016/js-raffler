@@ -15,9 +15,8 @@
       "foreignKey": "ownerId"
     },
     "entrants": {
-      "type": "hasMany",
-      "model": "entrant",
-      "foreignKey": ""
+      "type": "embedsMany",
+      "model": "entrant"
     }
   },
   "acls": [],
