@@ -4,9 +4,7 @@ module.exports = function(app) {
   var RoleMapping = app.models.RoleMapping;
 
   User.create([
-    {username: 'John', email: 'john@doe.com', password: 'opensesame'},
-    {username: 'Jane', email: 'jane@doe.com', password: 'opensesame'},
-    {username: 'Bob', email: 'bob@raffles.com', password: 'opensesame'}
+    {username: 'Admin', email: 'admin@sdjs-raffle.com', password: 'sdjspassword'}
   ], function(err, users) {
     if (err) throw err;
 
@@ -14,22 +12,11 @@ module.exports = function(app) {
 
     // create raffle 1 and make john the owner
     users[0].raffles.create({
-      date: new Date()
+      date: new Date(),
+      active: false
     }, function(err, raffle) {
       if (err) throw err;
-
       console.log('Created raffle:', raffle);
-
-    });
-
-    //create raffle 2 and make jane the owner
-    users[1].raffles.create({
-      date: new Date()
-    }, function(err, raffle) {
-      if (err) throw err;
-
-      console.log('Created raffle:', raffle);
-
     });
 
     //create the admin role
@@ -43,7 +30,7 @@ module.exports = function(app) {
       //make bob an admin
       role.principals.create({
         principalType: RoleMapping.USER,
-        principalId: users[2].id
+        principalId: users[0].id
       }, function(err, principal) {
         if (err) throw err;
 
