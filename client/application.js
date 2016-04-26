@@ -43,7 +43,7 @@ $('#public-registration-form').submit(function(event){
   })
     .done(function(response){
       console.log(response);
-      $('#new-entrant-form').remove();
+      $('#public-registration-form').remove();
       $('body').append("Your confirmation number is: " + response.id);
     });
 });
