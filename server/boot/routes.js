@@ -97,10 +97,10 @@ module.exports = function(app) {
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
       if (raffle){
         console.log("Active raffle found");
-        if ( req.body.body && req.body.body.username ) {
+        if ( req.body.Body ) {
           console.log("We have a text message.");
-          console.log(req.body.body);
-          raffle.entrants.create({"username": req.body.body.username}, function(err,entrant){
+          console.log(req.body.Body);
+          raffle.entrants.create({"username": req.body.Body}, function(err,entrant){
 
             // some code to sent a text to req.body.from via the twilio api
 
