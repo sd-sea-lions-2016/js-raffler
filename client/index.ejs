@@ -4,33 +4,20 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" type="text/css" href="../css/app.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <title>JS Raffler</title>
   </head>
   <body>
-    <h1>SDJS Raffler</h1>
-    <table border=1 cellpadding=5>
-      <tr>
-        <th>Login</th>
-      </tr>
-      <tr>
-        <td><a href="/raffles">Guest</a></td>
-      </tr>
-      <tr>
-        <td>
-          <form action="/login" method="post">
-            <input type="text" name="email" value="john@doe.com" placeholder="Email"><br>
-            <input type="password" name="password" value="opensesame" placeholder="Password"><br>
-            <input type="submit" value="Login">
-          </form>
-        </td>
-      </tr>
-      <% if (loginFailed) { %>
-        <tr>
-          <td colspan=6>
-              <span style="color:red">Login failed, please try again</span>
-          </td>
-        </tr>
-      <% } %>
-    </table>
+    <div class="login" id="login">
+<h1>SDJS Raffler</h1>
+<div class="login-triangle"></div>
+  <h2 class="login-header">Log in</h2>
+  <form class="login-container" action="/login" method="post">
+    <p><input type="email" placeholder="Email"></p>
+    <p><input type="password" placeholder="Password"></p>
+    <p><input type="submit" value="Log in"></p>
+  </form>
+</div>
   </body>
 </html>
