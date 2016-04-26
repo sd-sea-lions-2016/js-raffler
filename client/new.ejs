@@ -26,9 +26,13 @@
     </form>
 
     <h3>Registered Raffle Entrants</h3>
+    <div>
     <ul id="entrants-list">
+       <!-- <% for ( var i = 0; i < entrants.length; i++) { %> -->
+      <!-- <li><%= entrants[i].username %></li> -->
+    <!-- <% } %> -->
     </ul>
-
+    </div>
     <!-- <% if (raffle.active == true) { %> -->
 
       <form class="login" action="/raffles/<%= raffle.id %>/end" method="post">
