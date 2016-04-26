@@ -1,7 +1,31 @@
 module.exports = function(Raffle) {
 
+  // Raffle.disableRemoteMethod("create", true);
+  Raffle.disableRemoteMethod("upsert", true);
+  Raffle.disableRemoteMethod("updateAll", true);
+  // Raffle.disableRemoteMethod("updateAttributes", false);
+
+  // Raffle.disableRemoteMethod("find", true);
+  // Raffle.disableRemoteMethod("findById", true);
+  // Raffle.disableRemoteMethod("findOne", true);
+
+  Raffle.disableRemoteMethod("deleteById", true);
+
+  Raffle.disableRemoteMethod("confirm", true);
+  Raffle.disableRemoteMethod("count", true);
+  Raffle.disableRemoteMethod("exists", true);
+  Raffle.disableRemoteMethod("resetPassword", true);
+
+  Raffle.disableRemoteMethod('__count__accessTokens', false);
+  Raffle.disableRemoteMethod('__create__accessTokens', false);
+  Raffle.disableRemoteMethod('__delete__accessTokens', false);
+  Raffle.disableRemoteMethod('__destroyById__accessTokens', false);
+  Raffle.disableRemoteMethod('__findById__accessTokens', false);
+  Raffle.disableRemoteMethod('__get__accessTokens', false);
+  Raffle.disableRemoteMethod('__updateById__accessTokens', false);
+
   var app;
-  
+
   Raffle.observe('before save', function(ctx, next) {
     if ( ctx.instance ) {
       // update on creation
@@ -13,25 +37,19 @@ module.exports = function(Raffle) {
     next();
   });
 
-  Raffle.prototype.printID = function(){
-    console.log("Raffle id: " + this.id);
-  };
-
-
   Raffle.on('attached', function(app) {
 
     Raffle.render_raffle = function(id, res){
+      console.log("Inside render raffle");
       var Raffle = app.models.raffle;
-      var Entrant = app.models.entrant;
       var raffle = null;
-      var eligible_entrants = null;
+      var eligible_entrants = [];
       var winner = null;
-      var previous_winners = null;
+      var previous_winners = [];
       var alert = null;
 
-      var render_round = function() {
-        console.log("Inside render_round");
-        raffle.printID();
+      var render_round = function(raffle) {
+
         res.render('show', {
           raffle: raffle,
           alert: alert,
@@ -41,42 +59,35 @@ module.exports = function(Raffle) {
         });
       };
 
-      var get_eligible_entrants = function(result){
-        console.log("Inside get_eligible_entrants");
-        raffle = result;
+      console.log("Round id: " + id);
+      Raffle.findById(id).then(function(raffle){
+        entrants = raffle.entrants();
 
-        Entrant.find({where: {and: [{raffleId: raffle.id}, {eligible: true}]}}).then(get_previous_winners);
-      };
+        eligible_entrants = entrants.filter(function(entrant){
+          return entrant.eligible;
+        });
 
-      var get_previous_winners = function(result){
-        console.log("Inside get_previous_winners");
-        eligible_entrants = (result && result.length > 0) ? result : null;
-        Entrant.find({where: {and: [{raffleId: raffle.id}, {eligible: false}]}}).then(get_winner);
-      };
-
-      var get_winner = function(result){
-        console.log("Inside get_winner");
-        previous_winners = (result && result.length > 0) ? result : null;
+        previous_winners = entrants.filter(function(entrant){
+          return !entrant.eligible;
+        });
 
         if (raffle.active && eligible_entrants && eligible_entrants.length > 0){
           var winner_index = Math.floor(Math.random() * eligible_entrants.length);
           winner = eligible_entrants[winner_index];
-          console.log("Winner index: " + winner_index);
-          console.log("Winner name: " + winner.username);
-          winner.updateAttribute('eligible', false);
-          alert = "" + winner.username + " has won this round!!!"
+          // update entrant to be ineligible (already won once) from further rounds in this raffle.
+          raffle.entrants.updateById(winner.id, function(err, entrant){
+            entrant.updateAttribute('eligible', false);
+            entrant.save();
+          });
+          alert = "" + winner.username + " has won this round!!!";
         } else {
           raffle.updateAttribute('active', false);
-          alert = "Raffle is over."
+          alert = "Raffle is closed.";
         }
+        render_round(raffle);
+      }); // end Raffle.findById.then
+    }; // end Raffle.render_raffle()
 
-        render_round();
-      };
+  }); // end Raffle.on('attach')
 
-      Raffle.findById(id).then(get_eligible_entrants);
-    };
-  });  
-
-};
-
-
+}; // end module.exports

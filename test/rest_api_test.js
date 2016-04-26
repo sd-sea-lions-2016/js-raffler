@@ -16,13 +16,13 @@ describe('REST API request', function() {
     require('./start-server');
     done();
   });
-  
+
   after(function(done) {
     app.removeAllListeners('started');
     app.removeAllListeners('loaded');
     done();
   });
-  
+
   it('should not allow access without access token', function(done){
     json('get', '/api/projects')
       .expect(401, done);
@@ -44,7 +44,7 @@ describe('REST API request', function() {
             var projects = res.body;
             assert(typeof res.body === 'object');
             assert(res.body.balance);
-            assert.equal(res.body.balance, 100); 
+            assert.equal(res.body.balance, 100);
           });
         done();
       });
@@ -78,7 +78,7 @@ describe('REST API request', function() {
             id: 2,
             amount: 10
           })
-          .expect(200, function(err, res){            
+          .expect(200, function(err, res){
             assert(typeof res.body === 'object');
             assert(res.body.success);
             assert.equal(res.body.success, true);
