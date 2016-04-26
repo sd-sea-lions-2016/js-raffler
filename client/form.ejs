@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
+    </script>
+    <script src="application.js"></script>
+    <title>JS Raffler</title>
+  </head>
+  <body>
+
+    <h1>Raffle Registrations</h1>
+
+    <p>Date Opened: <span><%= raffle.date %></span></p>
+
+    <p>
+      <form id="new-entrant-form" action="api/entrants" method="post">
+        <input type="text" name="username" placeholder="Enter participant username" autofocus>
+        <input type="submit" name="new-username-submit" value="Register Participant">
+      </form>
+    </p>
+
+  </body>
+</html>

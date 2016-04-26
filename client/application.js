@@ -2,12 +2,14 @@ $(function(){
 
 /////////////////////////////////////////////////////////
 
-  // We don't want to start until at least one 
+  // We don't want to start until at least one
   $('.entrants').hide();
 
   $('#new-entrant-form').submit(function(event){
     event.preventDefault();
 
+    console.log("register new entrant");
+    
     var url = $(this).attr('action');
     var data = $(this).serialize();
 
