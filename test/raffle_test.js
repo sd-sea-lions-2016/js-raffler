@@ -19,8 +19,19 @@ describe('raffles', function(){
     json('get', '/api/raffles')
       .expect(200, function(err, res){
         assert(Array.isArray(res.body));
+        assert.typeOf(res.body[1], 'object', 'response contains a raffle');
         // assert.equal(res.body.length, 7);
         done();
+      });
+  });
+
+  xit('should return an array of entrants', function(done) {
+    json('get', '/api/raffles/11')
+      .expect(200, function(err, res){
+        // assert(Array.isArray(res.body));
+        assert.typeOf(res.body, 'object', 'response contains an entrant');
+        console.log(res.body);
+      done();
       });
   });
 
@@ -28,6 +39,8 @@ describe('raffles', function(){
     json('get', '/api/raffles/1')
       .expect(200, function(err,res){
         assert.equal(res.entrants.linkedType, 'Entrant');
+        assert(Array.isArray(res.body));
+        // assert.typeOf(res.body[1], 'object', 'response contains an entrant');
         done();
       });
   });
