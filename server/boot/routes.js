@@ -94,6 +94,8 @@ module.exports = function(app) {
   router.post('/register', function(req, res) {
     var Raffle = app.models.raffle;
 
+    console.log(req)
+
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
       if (raffle){
         raffle.entrants.create({"username": req.body.username}, function(err,entrant){
