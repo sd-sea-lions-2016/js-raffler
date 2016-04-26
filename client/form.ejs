@@ -9,16 +9,23 @@
   </head>
   <body>
 
-    <h1>Raffle Registrations</h1>
+    <h1>Raffle Registration</h1>
 
-    <p>Date Opened: <span><%= raffle.date %></span></p>
+    <% if (raffle) { %>
+      <p>Date Opened: <span><%= raffle.date %></span></p>
 
-    <p>
-      <form id="public-registration-form" action="/register" method="post">
-        <input type="text" name="username" placeholder="Enter participant username" autofocus>
-        <input type="submit" name="public-registration" value="Register Participant">
-      </form>
-    </p>
+      <div id="public-registration-status">
+      </div>
+
+      <p>
+        <form id="public-registration-form" action="/register" method="post">
+          <input type="text" name="username" placeholder="Enter participant username" autofocus>
+          <input type="submit" name="public-registration" value="Register Participant">
+        </form>
+      </p>
+    <% } else { %>
+      <p>Sorry, there are no open raffles. Try again later.</p>
+    <% } %>
 
   </body>
 </html>

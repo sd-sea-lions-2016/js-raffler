@@ -95,10 +95,17 @@ module.exports = function(app) {
     var Raffle = app.models.raffle;
 
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
-      raffle.entrants.create({"username": req.body.username}, function(err,entrant){
-          res.send(entrant);
-      });
-    });
+      if (raffle){
+        raffle.entrants.create({"username": req.body.username}, function(err,entrant){
+            res.send(entrant);
+        });
+      } else {
+        throw "No active raffles. Try again later."
+      }
+    })
+      .catch(function(err){
+        res.send(err);
+    });;
   });
 
   router.get('/logout', function(req, res) {

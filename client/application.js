@@ -1,6 +1,6 @@
 $(function(){
 
-/////////////////////////////////////////////////////////
+//////////////// ADMIN-SIDE USER REGISTRATION /////////////////////////////////////////
 
   // We don't want to start until at least one
   $('.entrants').hide();
@@ -26,7 +26,7 @@ $(function(){
       });
   });
 
-/////////////////////////////////////////////////////////
+//////////////// USER-SIDE PUBLIC REGISTRATION /////////////////////////////////////////
 
 $('#public-registration-form').submit(function(event){
   event.preventDefault();
@@ -44,7 +44,10 @@ $('#public-registration-form').submit(function(event){
     .done(function(response){
       console.log(response);
       $('#public-registration-form').remove();
-      $('body').append("Your confirmation number is: " + response.id);
+      $('#public-registration-status').html("Your confirmation number is: " + response.id);
+    })
+    .fail(function(response){
+      $('#public-registration-status').html("There was an issue registering. Try again later: " + response);
     });
 });
 
