@@ -37,4 +37,4 @@ Procfile
 .env
 
 # Node Files
-node_modules
+node_modules/
