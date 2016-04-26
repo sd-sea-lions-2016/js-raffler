@@ -1,5 +1,6 @@
 $(function(){
 
+console.log("JS CONNECTED");
 //////////////// ADMIN-SIDE USER REGISTRATION /////////////////////////////////////////
 
   // We don't want to start until at least one

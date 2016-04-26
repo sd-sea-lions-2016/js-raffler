@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
-    </script>
-    <title>JS Raffler</title>
-  </head>
-  <body>
-    <h1>SDJS Raffler</h1>
-    <table border=1 cellpadding=5>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
+  </script>
+  <script src="application.js"></script>
+  <title>JS Raffler</title>
+</head>
+
+<body>
+  <h1>SDJS Raffler</h1>
+  <table border=1 cellpadding=5>
+    <tr>
+      <th>Login</th>
+    </tr>
+    <tr>
+      <td><a href="/raffles">Guest</a></td>
+    </tr>
+    <tr>
+      <td>
+        <form action="/login" method="post">
+          <input type="text" name="email" value="admin@sdjs-raffle.com" placeholder="Email"><br>
+          <input type="password" name="password" value="sdjspassword" placeholder="Password"><br>
+          <input type="submit" value="Login">
+        </form>
+      </td>
+    </tr>
+    <% if (loginFailed) { %>
       <tr>
-        <th>Login</th>
-      </tr>
-      <tr>
-        <td><a href="/raffles">Guest</a></td>
-      </tr>
-      <tr>
-        <td>
-          <form action="/login" method="post">
-            <input type="text" name="email" value="admin@sdjs-raffle.com" placeholder="Email"><br>
-            <input type="password" name="password" value="sdjspassword" placeholder="Password"><br>
-            <input type="submit" value="Login">
-          </form>
+        <td colspan=6>
+            <span style="color:red">Login failed, please try again</span>
         </td>
       </tr>
-      <% if (loginFailed) { %>
-        <tr>
-          <td colspan=6>
-              <span style="color:red">Login failed, please try again</span>
-          </td>
-        </tr>
-      <% } %>
-    </table>
-  </body>
+    <% } %>
+  </table>
+  
+</body>
 </html>

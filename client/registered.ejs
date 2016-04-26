@@ -1,6 +1,24 @@
-<p>Raffle #: <%= raffle.id %></p>
-<p>Date: <span><%= raffle.date %></span></p>
+<!DOCTYPE html>
+<html lang="en">
 
-You have been registered. Your confirmation number is:
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
+  </script>
+  <script src="application.js"></script>
+  <title>JS Raffler</title>
+</head>
 
-<%= entrant.id %>
+<body>
+  
+  <p>Raffle #:
+    <%= raffle.id %>
+  </p>
+  <p>Date: <span><%= raffle.date.toLocaleDateString() %></span></p>
+
+  You have been registered. Your confirmation number is:
+
+  <%= entrant.id %>
+
+</body>
+</html>
