@@ -4,96 +4,62 @@ var should = chai.should,
     assert = chai.assert,
     supertest = require('supertest'),
     api = supertest('http://localhost:3000');
+var app = require('../server/server');
+
+function json(verb, url) {
+    return supertest(app)[verb](url)
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/);
+}
 
 describe('routes', function(){
 
-  it('successfully GETS the index route', function(done) {
-    api.get('/')
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      done();
-    });
+  before(function(done) {
+    require('./start-server');
+    done();
   });
 
-  it('successfullyGETS the raffles route', function(done) {
-    api.get('/raffles')
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      done();
-    });
+  after(function(done) {
+    app.removeAllListeners('started');
+    app.removeAllListeners('loaded');
+    done();
   });
 
-  it('successfully POSTs to the raffles route', function(done) {
-    api.post('/raffles')
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      done();
-    });
+  xit('successfully GETS the index route', function(done){
+    json('get', '/api/')
+      .expect(200, done);
   });
 
-  it('successfully POSTs to the login route', function(done) {
-    api.post('/login')
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      done();
-    });
+  it('successfully GETS the raffles route', function(done){
+    json('get', '/api/raffles')
+      .expect(200, done);
   });
 
-  it('succesfully GETs the raffle id route', function(done) {
-    api.get('/raffles/1')
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      done();
-    });
+  it('successfully POSTs to the raffles route', function(done){
+    json('post', '/api/raffles')
+      .expect(200, done);
   });
 
-  it('succesfully GETs the raffle id end raffle route', function(done) {
-    api.get('/raffles/1/end')
-    .expect(200)
-    .end(function(err, res) {
-      if (err) return done(err);
-      done();
-    });
+  xit('successfully POSTs to the login route', function(done){
+    json('post', '/api/login')
+      .expect(200, done);
   });
 
-// get /logout redirects to index
-  it('succesfully GETs the logout route', function(done) {
-    api.get('/logout')
-    .expect(302)
-    .end(function(err, res) {
-      if (err) return done(err);
-      // res.header.location.should.include('/');
-      done();
-    });
+   it('successfully GETS the raffles id route', function(done){
+    json('get', '/api/raffles/1')
+      .expect(200, done);
   });
 
+  xit('successfully GETS the raffle id end raffle route', function(done){
+    json('get', '/api/raffles/1/end')
+      .expect(200, done);
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  xit('succesfully GETs the logout route', function(done){
+    json('get', '/api/logout')
+      .expect(302, done);
+  });
 
 
   // END OF TESTS

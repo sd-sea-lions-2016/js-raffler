@@ -5,6 +5,8 @@ var should = chai.should,
     supertest = require('supertest'),
     api = supertest('http://localhost:3000');
 var app = require('../server/server');
+var Entrant = app.models.entrant;
+var Raffle = app.models.raffle;
 
 function json(verb, url) {
     return supertest(app)[verb](url)
@@ -15,35 +17,42 @@ function json(verb, url) {
 
 describe('raffles', function(){
 
+  before(function(done) {
+    require('./start-server');
+    done();
+  });
+
+  after(function(done) {
+    app.removeAllListeners('started');
+    app.removeAllListeners('loaded');
+    done();
+  });
+
+
+
   it('should return an array of raffles', function(done) {
     json('get', '/api/raffles')
       .expect(200, function(err, res){
         assert(Array.isArray(res.body));
         assert.typeOf(res.body[1], 'object', 'response contains a raffle');
-        // assert.equal(res.body.length, 7);
         done();
       });
   });
 
-  xit('should return an array of entrants', function(done) {
-    json('get', '/api/raffles/11')
+  it('should return an array of entrants', function(done) {
+    Raffle.findById(1).then(function(raffle){
+        raffle.entrants.create({'username': "Joe"});
+    });
+    console.log(Raffle.findById(1));
+    json('get', '/api/raffles/1')
       .expect(200, function(err, res){
-        // assert(Array.isArray(res.body));
-        assert.typeOf(res.body, 'object', 'response contains an entrant');
-        console.log(res.body);
+        assert(Array.isArray(res.body._entrants));
+        assert.typeOf(res.body._entrants[0], 'object', 'response contains an entrant');
+        console.log(res.body._entrants);
       done();
       });
   });
 
-  xit('should return a list of entrants', function(done) {
-    json('get', '/api/raffles/1')
-      .expect(200, function(err,res){
-        assert.equal(res.entrants.linkedType, 'Entrant');
-        assert(Array.isArray(res.body));
-        // assert.typeOf(res.body[1], 'object', 'response contains an entrant');
-        done();
-      });
-  });
 });
 
 
@@ -54,22 +63,6 @@ describe('Unexpected Usage', function(){
       .expect(404, done);
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
