@@ -14,7 +14,8 @@
     <p>Date Opened: <span><%= raffle.date %></span></p>
 
     <p>
-      <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post">
+      <!-- <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post"> -->
+      <form id="new-entrant-form" action="/register" method="post">
         <input type="text" name="username" placeholder="Enter participant username" autofocus>
         <input type="submit" name="new-username-submit" value="Register Participant">
       </form>
@@ -31,13 +32,13 @@
     </ul>
 
     <% if (raffle.active == true) { %>
-      
+
       <form action="/raffles/<%= raffle.id %>/end" method="post">
         <input type="submit" name="submit" value="End Raffle">
       </form>
-      
+
     <% } else { %>
-      
+
       <form action="/raffles" method="get">
         <input type="submit" name="submit" value="Exit Raffle">
       </form>
