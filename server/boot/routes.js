@@ -96,22 +96,27 @@ module.exports = function(app) {
 
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
       if (raffle){
-
-        if ( req.body.body.username ) {
-
+        console.log("Active raffle found");
+        if ( req.body.body && req.body.body.username ) {
+          console.log("We have a text message.");
+          console.log(req.body.body);
           raffle.entrants.create({"username": req.body.body.username}, function(err,entrant){
 
             // some code to sent a text to req.body.from via the twilio api
 
           });
         } else {
+          console.log("We got a web registration of either admin or public");
+          console.log(req.body);
           raffle.entrants.create({"username": req.body.username}, function(err,entrant){
             res.send(entrant);
           });
         }
+      } else {
+        console.log("No raffle open.");
       } // end if raffle
 
-    });
+    }); // end Raffle.findOne
   });
 
   router.get('/logout', function(req, res) {
