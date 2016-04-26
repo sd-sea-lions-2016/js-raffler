@@ -94,20 +94,24 @@ module.exports = function(app) {
   router.post('/register', function(req, res) {
     var Raffle = app.models.raffle;
 
-    console.log(req)
-
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
       if (raffle){
-        raffle.entrants.create({"username": req.body.username}, function(err,entrant){
+
+        if ( req.body.body.username ) {
+
+          raffle.entrants.create({"username": req.body.body.username}, function(err,entrant){
+
+            // some code to sent a text to req.body.from via the twilio api
+
+          });
+        } else {
+          raffle.entrants.create({"username": req.body.username}, function(err,entrant){
             res.send(entrant);
-        });
-      } else {
-        throw "No active raffles. Try again later."
-      }
-    })
-      .catch(function(err){
-        res.send(err);
-    });;
+          });
+        }
+      } // end if raffle
+
+    });
   });
 
   router.get('/logout', function(req, res) {
