@@ -82,6 +82,25 @@ module.exports = function(app) {
     });
   });
 
+  router.get('/register', function(req, res) {
+    var Raffle = app.models.raffle;
+    Raffle.findOne({where: {"active": true}}).then(function(raffle){
+        res.render('form', {
+          raffle: raffle
+        });
+    }).catch(function(err) { console.log("No active raffles") });
+  });
+
+  router.post('/register', function(req, res) {
+    var Raffle = app.models.raffle;
+
+    Raffle.findOne({where: {"active": true}}).then(function(raffle){
+      raffle.entrants.create({"username": req.body.username}, function(err,entrant){
+          res.send(entrant);
+      });
+    });
+  });
+
   router.get('/logout', function(req, res) {
     var AccessToken = app.models.AccessToken;
     var token = new AccessToken({id: req.query.access_token});

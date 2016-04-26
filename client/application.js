@@ -9,7 +9,7 @@ $(function(){
     event.preventDefault();
 
     console.log("register new entrant");
-    
+
     var url = $(this).attr('action');
     var data = $(this).serialize();
 
@@ -28,7 +28,25 @@ $(function(){
 
 /////////////////////////////////////////////////////////
 
+$('#public-registration-form').submit(function(event){
+  event.preventDefault();
 
+  console.log("register new entrant");
+
+  var url = $(this).attr('action');
+  var data = $(this).serialize();
+
+  $.ajax({
+    method: "POST",
+    url: url,
+    data: data
+  })
+    .done(function(response){
+      console.log(response);
+      $('#new-entrant-form').remove();
+      $('body').append("Your confirmation number is: " + response.id);
+    });
+});
 
 
 
