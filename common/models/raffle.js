@@ -1,5 +1,29 @@
 module.exports = function(Raffle) {
 
+  // Raffle.disableRemoteMethod("create", true);
+  Raffle.disableRemoteMethod("upsert", true);
+  Raffle.disableRemoteMethod("updateAll", true);
+  // Raffle.disableRemoteMethod("updateAttributes", false);
+
+  // Raffle.disableRemoteMethod("find", true);
+  // Raffle.disableRemoteMethod("findById", true);
+  // Raffle.disableRemoteMethod("findOne", true);
+
+  Raffle.disableRemoteMethod("deleteById", true);
+
+  Raffle.disableRemoteMethod("confirm", true);
+  Raffle.disableRemoteMethod("count", true);
+  Raffle.disableRemoteMethod("exists", true);
+  Raffle.disableRemoteMethod("resetPassword", true);
+
+  Raffle.disableRemoteMethod('__count__accessTokens', false);
+  Raffle.disableRemoteMethod('__create__accessTokens', false);
+  Raffle.disableRemoteMethod('__delete__accessTokens', false);
+  Raffle.disableRemoteMethod('__destroyById__accessTokens', false);
+  Raffle.disableRemoteMethod('__findById__accessTokens', false);
+  Raffle.disableRemoteMethod('__get__accessTokens', false);
+  Raffle.disableRemoteMethod('__updateById__accessTokens', false);
+
   var app;
 
   Raffle.observe('before save', function(ctx, next) {
