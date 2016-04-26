@@ -88,7 +88,7 @@ module.exports = function(app) {
         res.render('form', {
           raffle: raffle
         });
-    }).catch(function(err) { console.log("No active raffles") });
+    }).catch(function(err) { console.log("No active raffles"); });
   });
 
   router.post('/register', function(req, res) {
