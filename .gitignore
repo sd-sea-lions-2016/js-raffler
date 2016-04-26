@@ -35,3 +35,6 @@ node_modules
 # Heroku
 Procfile
 .env
+
+# Node Files
+node_modules
