@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "main": "server/server.js",
   "scripts": {
-    "pretest": "jshint .",
-    "start": "node .",
-    "test": "mocha test/*test.js"
+    "start": "node ."
   },
   "dependencies": {
     "body-parser": "^1.10.1",
