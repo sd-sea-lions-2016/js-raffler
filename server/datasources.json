@@ -1,6 +1,11 @@
 {
-  "db": {
-    "name": "db",
-    "connector": "memory"
+  "raffle": {
+      "name": "raffle",
+      "connector": "mongodb",
+      "host": "ds013911.mlab.com",
+      "database": "heroku_mdsgp3sf",
+      "username": "heroku_mdsgp3sf",
+      "password": "",
+      "port": 13911
   }
 }

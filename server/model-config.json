@@ -8,35 +8,35 @@
     ]
   },
   "User": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": false
   },
   "ACL": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": false
   },
   "Role": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": false
   },
   "user": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": true
   },
   "raffle": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": true
   },
   "entrant": {
-    "dataSource": "db",
+    "dataSource": "raffle",
     "public": true
   }
 }
