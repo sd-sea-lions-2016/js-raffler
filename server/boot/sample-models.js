@@ -3,17 +3,20 @@ module.exports = function(app) {
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
 
+console.log('seeding the db');
   User.find({username: 'Admin'}).then(function(result){
-    if (!result) {
+    console.log(result);
+    if (result.length < 1) {
+      console.log('No admin found. Creating admin');
       User.create([
         {username: 'Admin', email: 'admin@sdjs-raffle.com', password: 'sdjspassword'}
-      ], function(err, users) {
+      ], function(err, admin) {
         if (err) throw err;
 
-        console.log('Created users:', users);
+        console.log('Created users:', admin);
 
         // create raffle 1 and make john the owner
-        users[0].raffles.create({
+        admin[0].raffles.create({
           date: new Date(),
           active: false
         }, function(err, raffle) {
@@ -32,7 +35,7 @@ module.exports = function(app) {
           //make bob an admin
           role.principals.create({
             principalType: RoleMapping.USER,
-            principalId: users[0].id
+            principalId: admin[0].id
           }, function(err, principal) {
             if (err) throw err;
 
@@ -40,6 +43,8 @@ module.exports = function(app) {
           });
         });
       });
+    } else {
+      console.log('Admin already created.');
     } // end if statement
   });
 };
