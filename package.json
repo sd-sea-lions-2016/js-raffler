@@ -11,6 +11,7 @@
     "body-parser": "^1.10.1",
     "compression": "^1.0.3",
     "errorhandler": "^1.1.1",
+    "kerberos": "0.0.19",
     "loopback": "^2.8.0",
     "loopback-boot": "^2.4.0",
     "loopback-connector-mongodb": "1.0.0",
