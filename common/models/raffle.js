@@ -72,14 +72,14 @@ module.exports = function(Raffle) {
         });
 
         if (raffle.active && eligible_entrants && eligible_entrants.length > 0){
-          var winner_index = Math.floor(Math.random() * eligible_entrants.length);
-          winner = eligible_entrants[winner_index];
-          // update entrant to be ineligible (already won once) from further rounds in this raffle.
-          raffle.entrants.updateById(winner.id, function(err, entrant){
-            entrant.updateAttribute('eligible', false);
-            entrant.save();
-          });
-          alert = "" + winner.username + " has won this round!!!";
+          // var winner_index = Math.floor(Math.random() * eligible_entrants.length);
+          // winner = eligible_entrants[winner_index];
+          // // update entrant to be ineligible (already won once) from further rounds in this raffle.
+          // raffle.entrants.updateById(winner.id, function(err, entrant){
+          //   entrant.updateAttribute('eligible', false);
+          //   entrant.save();
+          // });
+          // alert = "" + winner.username + " has won this round!!!";
         } else {
           raffle.updateAttribute('active', false);
           alert = "Raffle is closed.";
