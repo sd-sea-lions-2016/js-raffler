@@ -1,5 +1,5 @@
 module.export = {
-  sdjs-raffle: {
+  "sdjs-raffle": {
     host:      ds013911.mlab.com,
     port:      13911,
     database:  heroku_mdsgp3sf,
