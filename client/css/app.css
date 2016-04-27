@@ -1,9 +1,9 @@
 html {
-    background: blue;
+    background-color: blue;
     background: -webkit-linear-gradient(-90deg, #2cb5e8, #0fb8ad);
     background: -o-linear-gradient(-90deg, #2cb5e8, #0fb8ad);
     background: -moz-linear-gradient(-90deg, #2cb5e8, #0fb8ad);
-    background: linear-gradient(-90deg, #2cb5e8, #0fb8ad)
+    background: linear-gradient(-90deg, #2cb5e8, #0fb8ad);
   }
 
 h1 {

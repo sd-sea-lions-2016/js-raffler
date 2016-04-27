@@ -5,21 +5,21 @@
     <title>SDJS Raffler</title>
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
     </script>
-    <link rel="stylesheet" type="text/css" href="../css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   </head>
   <body>
-  <!-- <h1>SDJS Raffler<% if (typeof username !== 'undefined') { %> - Welcome <%= username %><% } %></h1> -->
+  <h1>SDJS Raffler<% if (typeof username !== 'undefined') { %> - Welcome <%= username %><% } %></h1>
 
-      <!-- <% if (typeof username !== 'undefined') { %> -->
+      <% if (typeof username !== 'undefined') { %>
         <form action='/raffles' method="post" class="login">
           <input type="submit" name="submit" value="Create New Raffle">
         </form>
-      <!-- <% } else { %> -->
+      <% } else { %>
         <form action='/' method="get" class="login">
           <input type="submit" name="submit" value="Login">
         </form>
-      <!-- <% } %> -->
+      <% } %>
 
       <br>
 
