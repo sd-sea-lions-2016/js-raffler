@@ -3,7 +3,7 @@ module.export = {
   port:      13911,
   database:  heroku_mdsgp3sf,
   password:  process.env.DB_PASSWORD,
-  name:      raffle,
+  name:      sdjs-raffle,
   user:      heroku_mdsgp3sf,
   connector: mongodb
 }
