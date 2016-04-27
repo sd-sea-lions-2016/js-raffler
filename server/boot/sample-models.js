@@ -3,7 +3,7 @@ module.exports = function(app) {
   var Role = app.models.Role;
   var RoleMapping = app.models.RoleMapping;
 
-  User.find({username: 'Admin'}).then(result){
+  User.find({username: 'Admin'}).then(function(result){
     if (!result) {
       User.create([
         {username: 'Admin', email: 'admin@sdjs-raffle.com', password: 'sdjspassword'}
@@ -41,5 +41,5 @@ module.exports = function(app) {
         });
       });
     } // end if statement
-  };
+  });
 };
