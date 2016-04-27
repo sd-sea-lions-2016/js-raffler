@@ -109,6 +109,8 @@ module.exports = function(app) {
           console.log("We got a web registration of either admin or public");
           console.log(req.body);
           raffle.entrants.create({"username": req.body.username}, function(err,entrant){
+            console.log(err);
+            console.log(entrant);
             res.send(entrant);
           });
         }

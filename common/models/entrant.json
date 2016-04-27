@@ -14,6 +14,11 @@
       "type": "boolean",
       "required": true,
       "default": true
+    },
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuid"
     }
   },
   "validations": [],
