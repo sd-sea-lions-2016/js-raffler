@@ -13,7 +13,7 @@
   <body>
 
     <% numContestants = entrants.length %>
-    <p>Num entrants: <span id="numContestants"><%= numContestants %></span></p>
+    <span id="numContestants"><% numContestants %></span>
 
     <% if (raffle.active) { %>
       <form class="login" action="/raffles/<%= raffle.id %>" method="get">
@@ -33,7 +33,7 @@
 
     <table>
       <tr>
-      <% for (var j = 0; j <= 5; j++) { %>
+      <% for (var j = 0; j <= 4; j++) { %>
           <tr>
               <% for(var i = 0; i < numContestants; i++){ %>
                 <td></td> <td></td>
