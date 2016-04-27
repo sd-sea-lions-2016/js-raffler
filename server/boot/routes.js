@@ -30,9 +30,9 @@ module.exports = function(app) {
     });
   });
 
-  router.post(/^\/raffles\/\d+\/end/, function(req, res) {
+  router.post(/^\/raffles\/\w+\/end/, function(req, res) {
     console.log("Inside router.post /raffles/:id/end");
-    var re = /raffles\/(\d+)\/end/;
+    var re = /raffles\/(\w+)\/end/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
 
@@ -43,9 +43,9 @@ module.exports = function(app) {
     });
   });
 
-  router.get(/^\/raffles\/\d+\/?$/, function(req, res) {
+  router.get(/^\/raffles\/\w+\/?$/, function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\d+)/;
+    var re = /raffles\/(\w+)/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);
