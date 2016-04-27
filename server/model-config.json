@@ -8,35 +8,35 @@
     ]
   },
   "User": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": false
   },
   "AccessToken": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": false
   },
   "ACL": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": false
   },
   "RoleMapping": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": false
   },
   "Role": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": false
   },
   "user": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": true
   },
   "raffle": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": true
   },
   "entrant": {
-    "dataSource": "accountDS",
+    "dataSource": "sdjs-raffle",
     "public": true
   }
 }

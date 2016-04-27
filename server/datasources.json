@@ -1,10 +1,10 @@
 {
-  "accountDS": {
+  "sdjs-raffle": {
     "host": "ds013911.mlab.com",
     "port": 13911,
     "database": "heroku_mdsgp3sf",
-    "password": "225l6sg66lbrkkt298ot8jife",
-    "name": "accountDS",
+    "password": "${DB_PASSWORD}",
+    "name": "raffle",
     "user": "heroku_mdsgp3sf",
     "connector": "mongodb"
   }
