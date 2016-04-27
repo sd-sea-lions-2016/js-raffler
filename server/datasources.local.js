@@ -1,5 +1,5 @@
 var mongoUri = process.env.MONGO_URI ||
-  'mongodb://localhost';
+  'mongodb://bob';
 module.exports = {
   db: {
     defaultForType: "mongodb",
