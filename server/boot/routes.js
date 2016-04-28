@@ -43,11 +43,12 @@ module.exports = function(app) {
     });
   });
 
-  router.get(/^\/raffles\/\S+\/?$/, function(req, res) {
+  router.get(/^\/raffles\/\w+\/?/, function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\S+)/;
+    var re = /raffles\/(\w+)\/?/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
+    console.log(id);
     Raffle.render_raffle(id, res);
   });
 
