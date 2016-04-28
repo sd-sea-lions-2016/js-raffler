@@ -100,15 +100,31 @@ module.exports = function(app) {
         console.log("Active raffle found");
         if ( req.body.Body ) {
           console.log("We have a text message.");
-          console.log(req.body.Body);
-          raffle.entrants.create({"username": req.body.Body}, function(err,entrant){
 
-            // some code to sent a text to req.body.from via the twilio api
+          var username = req.body.Body;
+          var phoneNumber = req.body.From;
+          var myNumber = req.body.To;
+
+          raffle.entrants.create({"username": username}, function(err,entrant){
+            var body = 'You are registered in the SDJS raffle. Your confirmation number is: ' + entrant.id;
+
+            // Twilio Credentials
+            var accountSid = process.env.ACCOUNT_SID;
+            var authToken = process.env.AUTH_TOKEN;
+
+            var client = require('twilio')(accountSid, authToken);
+            client.messages.create({
+            	to: phoneNumber,
+            	from: "+18588425841",
+            	body: body,
+            }, function(err, message) {
+              console.log(err);
+            	console.log(message.sid);
+            });
 
           });
         } else {
           console.log("We got a web registration of either admin or public");
-          console.log(req.body);
           raffle.entrants.create({"username": req.body.username}, function(err,entrant){
             console.log(err);
             console.log(entrant);
