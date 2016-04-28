@@ -80,7 +80,7 @@ Plinko.prototype.run = function(contestants, cb) {
   var previousSquare = square;
   var falling_ball_timeout = 110; // ms
   var num_rows = 25;
-  var extra = 5;
+  var extra = 15;
   var wait_time_before_winner_announced = falling_ball_timeout * (num_rows + extra); // ms
   var i = 0;
   console.log(square);
