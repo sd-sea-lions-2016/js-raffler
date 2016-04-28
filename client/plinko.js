@@ -21,7 +21,7 @@ $( document ).ready(function() {
       pageScroll();
       random2 = Math.floor(Math.random() * (2));
       whereToMove = [0,1][random2];
-      var sound = new Audio("/audio/bgsound.mp3");
+      var sound = new Audio("/audio/bgsound.wav");
       sound.play();
 
       (function move (i) {
