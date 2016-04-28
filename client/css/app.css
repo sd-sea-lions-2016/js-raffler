@@ -135,12 +135,14 @@ li {
 .nametext {
   transform: rotate(90deg) translateY(-40px);
   transform-origin: left top 0;
-  background-color: #ffffe6
+  background-color: #ffffe6;
+  padding: 19px;
+  /*padding-bottom: 80px;*/
 }
 
 #fixed-row {
 position:fixed;
-bottom: 200px;
+bottom: 90px;
 }
 
 /* Modal Content/Box */

@@ -5,7 +5,6 @@ function pageScroll() {
 
 $( document ).ready(function() {
       var numContestants = $('#numContestants').html();
-      $('.nametext').css('padding', 10)
 
       var row = 1;
       var previousRow = 0;
@@ -93,7 +92,7 @@ $( document ).ready(function() {
         var winnerName = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
         var winner = $('.black').closest('tr').next().children().eq(cellIndex).html(); //NEEDS to look up winner by id
         var modal = document.getElementById('myModal');
-        $('#message_winner').html(winnerName +' has won!');
+        $('#message_winner').html(winner +' has won!');
         modal.style.display = "block";
         // Get the modal
         var modal = document.getElementById('myModal');
