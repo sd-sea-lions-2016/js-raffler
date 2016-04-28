@@ -1,11 +1,16 @@
 function pageScroll() {
   window.scrollBy(0,5); // horizontal and vertical scroll increments
   var function_name = 'pageScroll()';
-  scrolldelay = setTimeout(function_name,12); // scrolls every n milliseconds
+  scrolldelay = setTimeout(function_name,30); // scrolls every n milliseconds
+}
+
+function toggleZoomScreen() {
+document.body.style.zoom="50%"
 }
 
 $( document ).ready(function() {
 
+  toggleZoomScreen();
   var numEntrants = $('#numContestants').html();
   var isRaffleActive = $('#raffle-status').html();
   var raffle_path_with_id = $('#start-raffle-round').attr('action');
