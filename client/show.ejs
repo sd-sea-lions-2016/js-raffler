@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="/application.js"></script>
-    <script type="text/javascript" src="/plinko.js"></script>
+    <script type="text/javascript" src="/plinko.js" defer></script>
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link rel="stylesheet" type="text/css" href="/css/plinko.css">
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -16,7 +16,7 @@
     <p>Num entrants: <span id="numContestants"><%= numContestants %></span></p>
 
     <% if (raffle.active) { %>
-      <form class="login" action="/raffles/<%= raffle.id %>" method="get">
+      <form id="start-raffle-round" class="login" action="/raffles/<%= raffle.id %>" method="get">
         <input type="submit" name="submit" value="Start Next Raffle Round">
       </form>
     <% } %>
@@ -57,7 +57,7 @@
       <% } %>
       <tr>
       <% for(var i = 0; i < numContestants; i++){ %>
-      <td colspan="2" class="nametext"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
+      <td colspan="2" class="nametext" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
       <% } %>
       </tr>
       </tr>
