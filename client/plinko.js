@@ -1,7 +1,8 @@
 function pageScroll() {
   window.scrollBy(0,5); // horizontal and vertical scroll increments
-  scrolldelay = setTimeout('pageScroll()',10); // scrolls every n milliseconds
-}
+  var function_name = 'pageScroll()';
+  scrolldelay = setTimeout(function_name,10); // scrolls every n milliseconds
+};
 
 $( document ).ready(function() {
 
@@ -28,7 +29,7 @@ $( document ).ready(function() {
     console.log("Inside plinko.");
     var row = 1;
     var previousRow = 0;
-    var nextRow = 2
+    var nextRow = 2;
     var startingSquare = Math.floor(Math.random() * (numContestants*2));
     var square = startingSquare + 1;
     var previousSquare = square;
@@ -53,14 +54,14 @@ $( document ).ready(function() {
         var selection_array = [0,1];
 
         // console.log(whereToMove);
-        if(whereToMove == 0){
+        if(whereToMove === 0){
           selection_array = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
         }
         else if(whereToMove == 1){
           selection_array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0];
-        };
+        }
 
-        var random_index = Math.floor(Math.random() * selection_array.length)
+        var random_index = Math.floor(Math.random() * selection_array.length);
         whereToMove = selection_array[random_index];
 
         // console.log(whereToMove);
@@ -68,7 +69,7 @@ $( document ).ready(function() {
         var LEFT = 0;
         var RIGHT = 1;
         var LEFT_MOST_SQUARE = 1;
-        var RIGHT_MOST_SQUARE = (numContestants * 2)
+        var RIGHT_MOST_SQUARE = (numContestants * 2);
 
         if (--i) { // ball movement
           move(i);
@@ -104,11 +105,11 @@ $( document ).ready(function() {
           var winner = {};
           winner.username = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
           winner.id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
+
+          // Get the modal
           var modal = document.getElementById('myModal');
           $('#message_winner').html(winner.username +' has won!');
           modal.style.display = "block";
-          // Get the modal
-          var modal = document.getElementById('myModal');
 
           // Get the <span> element that closes the modal
           span = document.getElementsByClassName("close")[0];
@@ -116,7 +117,7 @@ $( document ).ready(function() {
           // When the user clicks on <span> (x), close the modal
           span.onclick = function() {
               modal.style.display = "none";
-          }
+          };
           databaseConnector.setWinner(winner);
           if (numContestants > 1){
             $('#start-raffle-round').show();

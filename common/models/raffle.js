@@ -59,13 +59,11 @@ module.exports = function(Raffle) {
 
       console.log("Round id: " + id);
       Raffle.findById(id).then(function(raffle){
-        console.log("Inside findById. Raffle object:")
         console.log(raffle);
 
         console.log("Requesting raffle by id and getting entrants");
         entrants = raffle.entrants();
 
-        console.log("Requesting eligible_entrants")
         eligible_entrants = entrants.filter(function(entrant){
           return entrant.eligible;
         });
