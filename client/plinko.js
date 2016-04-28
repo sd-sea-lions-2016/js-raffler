@@ -20,10 +20,6 @@ $( document ).ready(function() {
       random2 = Math.floor(Math.random() * (2));
       whereToMove = [0,1][random2];
 
-      // $('html, body').animate({
-      //     scrollTop: $(".black").offset().top
-      //   }, 2000);
-
       (function move (i) {
         setTimeout(function () {
           $('table tbody tr:nth-child('+row+') td:nth-child('+square+')').addClass('black');
@@ -33,7 +29,7 @@ $( document ).ready(function() {
           var random = Math.floor(Math.random() * (40));
           var selection_array = [0,1];
 
-          console.log(whereToMove);
+          // console.log(whereToMove);
           if(whereToMove == 0){
             selection_array = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
           }
@@ -44,7 +40,7 @@ $( document ).ready(function() {
           var random_index = Math.floor(Math.random() * selection_array.length)
           whereToMove = selection_array[random_index];
 
-          console.log(whereToMove);
+          // console.log(whereToMove);
 
           var LEFT = 0;
           var RIGHT = 1;
@@ -83,7 +79,8 @@ $( document ).ready(function() {
       setTimeout(function(){
         var cellIndex = $('.black').index() / 2;
         $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
-        var winner = $('.black').closest('tr').next().children().eq(cellIndex).html();
+        var winner_id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
+        var winner = $('.black').closest('tr').next().children().eq(cellIndex).html(); //NEEDS to look up winner by id
         var modal = document.getElementById('myModal');
         $('#message_winner').html(winner +' has won!');
         modal.style.display = "block";

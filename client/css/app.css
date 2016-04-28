@@ -129,7 +129,8 @@ li {
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0); /* Black w/ opacity */
-    padding-left: 17%;
+    padding-left: 42%;
+    padding-top: 22%;
 
 }
 
