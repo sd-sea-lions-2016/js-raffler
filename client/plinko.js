@@ -1,11 +1,10 @@
 function pageScroll() {
   window.scrollBy(0,5); // horizontal and vertical scroll increments
   var function_name = 'pageScroll()';
-  scrolldelay = setTimeout(function_name,10); // scrolls every n milliseconds
+  scrolldelay = setTimeout(function_name,12); // scrolls every n milliseconds
 }
 
 $( document ).ready(function() {
-
 
   var numEntrants = $('#numContestants').html();
   var isRaffleActive = $('#raffle-status').html();
@@ -33,7 +32,7 @@ $( document ).ready(function() {
     var startingSquare = Math.floor(Math.random() * (numContestants*2));
     var square = startingSquare + 1;
     var previousSquare = square;
-    var falling_ball_timeout = 75; // ms
+    var falling_ball_timeout = 100; // ms
     var num_rows = 133;
     var extra = 2;
     var wait_time_before_winner_announced = (falling_ball_timeout * (num_rows + extra)) + 1500; // ms
