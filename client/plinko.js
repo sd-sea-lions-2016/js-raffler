@@ -1,8 +1,10 @@
+function pageScroll() {
+  window.scrollBy(0,5); // horizontal and vertical scroll increments
+  scrolldelay = setTimeout('pageScroll()',13); // scrolls every 150 milliseconds
+}
+
 $( document ).ready(function() {
-      // console.log($('#numContestants').html());
       var numContestants = $('#numContestants').html();
-      // console.log("Inside plinko");
-      // console.log("numContestants: " + numContestants + "!");
       var row = 1;
       var previousRow = 0;
       var nextRow = 2
@@ -10,30 +12,42 @@ $( document ).ready(function() {
       var square = startingSquare + 1;
       var previousSquare = square;
       var falling_ball_timeout = 100; // ms
-      var num_rows = 21;
+      var num_rows = 133;
       var extra = 2;
-      var wait_time_before_winner_announced = falling_ball_timeout * (num_rows + extra); // ms
+      var wait_time_before_winner_announced = (falling_ball_timeout * (num_rows + extra)) + 1000; // ms
       var i = 0;
+      pageScroll();
+      random2 = Math.floor(Math.random() * (2));
+      whereToMove = [0,1][random2];
 
-      // console.log(square);
+      // $('html, body').animate({
+      //     scrollTop: $(".black").offset().top
+      //   }, 2000);
+
       (function move (i) {
         setTimeout(function () {
-          $('table :first-child :nth-child('+row+') :nth-child('+square+')').addClass('black');
-          $('table :first-child :nth-child('+previousRow+') :nth-child('+previousSquare+')').removeClass('black');
-          var whereToMove = Math.floor(Math.random() * (4));
-          var random = Math.floor(Math.random() * (20));
-          if(whereToMove == 2 || whereToMove == 3){
-            var whereToMove = [2,2,2,2,3,3,2,2,2,2,2,1,1,2,2,2,2,2,2,2][random];
-          }else{
-            var whereToMove = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3][random];
+          $('table tbody tr:nth-child('+row+') td:nth-child('+square+')').addClass('black');
+          $('table tbody tr:nth-child('+previousRow+') td:nth-child('+previousSquare+')').removeClass('black');
+          $('table tbody tr:nth-child('+previousRow+') td:nth-child('+previousSquare+')').css('background-color', 'yellow');
+
+          var random = Math.floor(Math.random() * (40));
+          var selection_array = [0,1];
+
+          console.log(whereToMove);
+          if(whereToMove == 0){
+            selection_array = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1];
+          }
+          else if(whereToMove == 1){
+            selection_array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0];
           };
 
-          // console.log(whereToMove);
+          var random_index = Math.floor(Math.random() * selection_array.length)
+          whereToMove = selection_array[random_index];
 
-          var TWO_LEFT = 1;
-          var TWO_RIGHT = 2;
+          console.log(whereToMove);
+
           var LEFT = 0;
-          var RIGHT = 3;
+          var RIGHT = 1;
           var LEFT_MOST_SQUARE = 1;
           var RIGHT_MOST_SQUARE = (numContestants * 2)
 
@@ -52,21 +66,11 @@ $( document ).ready(function() {
                 }
                 else if(whereToMove == LEFT && square == LEFT_MOST_SQUARE){
                   square++;
+                  whereToMove = 1;
                 }
                 else if(whereToMove == RIGHT && square == RIGHT_MOST_SQUARE){
                   square--;
-                }
-                else if(whereToMove == TWO_RIGHT && square != RIGHT_MOST_SQUARE){
-                  square++
-                }
-                 else if(whereToMove == TWO_LEFT && square != LEFT_MOST_SQUARE){
-                  square--;
-                }
-                else if (whereToMove == TWO_RIGHT && square == RIGHT_MOST_SQUARE){
-                  square--;
-                }
-                else if(whereToMove == TWO_LEFT && square == LEFT_MOST_SQUARE){
-                  square++;
+                  whereToMove = 0;
                 }
               }
               else{
@@ -80,7 +84,18 @@ $( document ).ready(function() {
         var cellIndex = $('.black').index() / 2;
         $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
         var winner = $('.black').closest('tr').next().children().eq(cellIndex).html();
-        alert(winner+' has won!');
-      }, wait_time_before_winner_announced);
+        var modal = document.getElementById('myModal');
+        $('#message_winner').html(winner +' has won!');
+        modal.style.display = "block";
+        // Get the modal
+        var modal = document.getElementById('myModal');
 
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+      }, wait_time_before_winner_announced);
 });
