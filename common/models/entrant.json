@@ -13,6 +13,11 @@
     "eligible": {
       "type": "boolean",
       "default": true
+    },
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuid"
     }
   },
   "validations": [],

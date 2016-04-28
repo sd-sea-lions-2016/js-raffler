@@ -30,22 +30,23 @@ module.exports = function(app) {
     });
   });
 
-  router.post(/^\/raffles\/\d+\/end/, function(req, res) {
+  router.post(/^\/raffles\/\S+\/end/, function(req, res) {
     console.log("Inside router.post /raffles/:id/end");
-    var re = /raffles\/(\d+)\/end/;
+    var re = /raffles\/(\S+)\/end/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
 
     Raffle.findById(id).then(function(raffle){
       // Raffle is now closed/inactive
       raffle.updateAttribute('active', false);
-      Raffle.render_raffle(id, res);
+      //Raffle.render_raffle(id, res);
+      res.redirect('/raffles');
     });
   });
 
-  router.get(/^\/raffles\/\d+\/?$/, function(req, res) {
+  router.get(/^\/raffles\/\S+\/?$/, function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\d+)/;
+    var re = /raffles\/(\S+)/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);
@@ -99,16 +100,34 @@ module.exports = function(app) {
         console.log("Active raffle found");
         if ( req.body.Body ) {
           console.log("We have a text message.");
-          console.log(req.body.Body);
-          raffle.entrants.create({"username": req.body.Body}, function(err,entrant){
 
-            // some code to sent a text to req.body.from via the twilio api
+          var username = req.body.Body;
+          var phoneNumber = req.body.From;
+          var myNumber = req.body.To;
+
+          raffle.entrants.create({"username": username}, function(err,entrant){
+            var body = 'You are registered in the SDJS raffle. Your confirmation number is: ' + entrant.id;
+
+            // Twilio Credentials
+            var accountSid = process.env.ACCOUNT_SID;
+            var authToken = process.env.AUTH_TOKEN;
+
+            var client = require('twilio')(accountSid, authToken);
+            client.messages.create({
+            	to: phoneNumber,
+            	from: "+18588425841",
+            	body: body,
+            }, function(err, message) {
+              console.log(err);
+            	console.log(message.sid);
+            });
 
           });
         } else {
           console.log("We got a web registration of either admin or public");
-          console.log(req.body);
           raffle.entrants.create({"username": req.body.username}, function(err,entrant){
+            console.log(err);
+            console.log(entrant);
             res.send(entrant);
           });
         }

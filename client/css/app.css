@@ -20,6 +20,10 @@ body {
   font-family: 'Lato';
 }
 
+.hidden {
+  display: none;
+}
+
 .login {
   width: 400px;
   margin: 16px auto;
