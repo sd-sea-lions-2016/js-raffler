@@ -13,27 +13,11 @@
   <body>
 
     <% numContestants = entrants.length %>
-    <p>Num entrants: <span id="numContestants"><%= numContestants %></span></p>
-
-    <% if (raffle.active) { %>
-      <form id="start-raffle-round" class="login" action="/raffles/<%= raffle.id %>" method="get">
-        <input type="submit" name="submit" value="Start Next Raffle Round">
-      </form>
-    <% } %>
-
-    <% if (raffle.active) { %>
-      <form class="login" action="/raffles/<%= raffle.id %>/end" method="post">
-        <input type="submit" name="submit" value="End Raffle">
-      </form>
-    <% } else { %>
-      <form class="login" action="/raffles" method="get">
-        <input type="submit" name="submit" value="Exit Raffle">
-      </form>
-    <% } %>
+    <span class="hidden" id="numContestants"><%= numContestants %></span>
 
     <table>
       <tr>
-      <% for (var j = 0; j <= 5; j++) { %>
+      <% for (var j = 0; j <= 32; j++) { %>
           <tr>
               <% for(var i = 0; i < numContestants; i++){ %>
                 <td></td> <td></td>
@@ -55,13 +39,40 @@
             <% } %>
           </tr>
       <% } %>
-      <tr>
+      <tr class="name_row">
       <% for(var i = 0; i < numContestants; i++){ %>
-      <td colspan="2" class="nametext" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
+      <td colspan="2" class="nametext" username="<%= entrants[i].username %>" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
       <% } %>
       </tr>
       </tr>
     </table>
 
+      <div id='button-div'>
+     <% if (raffle.active) { %>
+      <form class="login" action="/raffles/<%= raffle.id %>" method="get">
+        <input type="submit" name="submit" value="Start Next Raffle Round">
+      </form>
+    <% } %>
+
+    <% if (raffle.active) { %>
+      <form class="login" action="/raffles/<%= raffle.id %>/end" method="post">
+        <input type="submit" name="submit" value="End Raffle">
+      </form>
+    <% } else { %>
+      <form class="login" action="/raffles" method="get">
+        <input type="submit" name="submit" value="Exit Raffle">
+      </form>
+    <% } %>
+    </div>
+
   </body>
+  <footer>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">X</span>
+        <p id="message_winner">Winner</p>
+        <!-- <p>Sponsor</p> -->
+      </div>
+    </div>
+  </footer>
 </html>
