@@ -11,8 +11,13 @@ $(function(){
   var rc = new RaffleDBConnector(raffle_path_with_id);
 
   if (isRaffleActive){
+    $('#start-raffle-round').hide();
+    $('#end-raffle').hide();
+    $('#exit-raffle').hide();
     Plinko(rc);
   } else {
+    $('#end-raffle').show();
+    $('#exit-raffle').show();
     console.log("Raffle is closed. Send to view page.");
   }
 
@@ -108,6 +113,9 @@ $(function(){
               modal.style.display = "none";
           }
           databaseConnector.setWinner(winner);
+          $('#start-raffle-round').show();
+          $('#end-raffle').show();
+          $('#exit-raffle').show();
         }
       }, falling_ball_timeout);
     })(num_rows);
@@ -129,13 +137,13 @@ RaffleDBConnector.prototype.getEntrantUpdateURL = function(){
 
 RaffleDBConnector.prototype.setWinner = function(winner){
   console.log("Inside RaffleDBConnector.setWinner");
-  var data = {"eligible": false, "id": this.winner.id };
   this.winner = winner
-  console.log("About to notify DB of winner " + winner.username + " with id: " + winner.id);
+  var data = {"eligible": false, "id": this.winner.id };
+  console.log("About to notify DB of winner " + this.winner.username + " with id: " + this.winner.id);
 
   $.ajax({
     method: 'PUT',
-    url: this.getEntrantUpdateURL(winner),
+    url: this.getEntrantUpdateURL(),
     data: data
   }) 
     .done(function(response){
