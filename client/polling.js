@@ -1,8 +1,8 @@
 setInterval ( "updateEntrantsList()", 1000 );
 
 function updateEntrantsList(){
-  var form = $('#start-first-round');
-  var url = "api" + form.attr('action') + "/entrants";
+  var form = $('#new-entrant-form');
+  var url = form.attr('action');
   console.log("Updating Entrants List");
   $.ajax({
     method: "GET",
