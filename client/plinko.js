@@ -2,7 +2,7 @@ function pageScroll() {
   window.scrollBy(0,5); // horizontal and vertical scroll increments
   var function_name = 'pageScroll()';
   scrolldelay = setTimeout(function_name,10); // scrolls every n milliseconds
-};
+}
 
 $( document ).ready(function() {
 
