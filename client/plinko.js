@@ -41,7 +41,7 @@ $( document ).ready(function() {
     pageScroll();
     random2 = Math.floor(Math.random() * (2));
     whereToMove = [0,1][random2];
-    var sound = new Audio("/audio/bgsound.wav");
+    var sound = new Audio("/audio/bgsound.mp3");
     sound.play();
 
     (function move (i) { // associated with num_rows
