@@ -39,7 +39,8 @@ module.exports = function(app) {
     Raffle.findById(id).then(function(raffle){
       // Raffle is now closed/inactive
       raffle.updateAttribute('active', false);
-      Raffle.render_raffle(id, res);
+      //Raffle.render_raffle(id, res);
+      res.redirect('/raffles');
     });
   });
 

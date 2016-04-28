@@ -5,7 +5,7 @@ function pageScroll() {
 
 $(function(){
 
-  var numContestants = $('#numContestants').html();
+  var numEntrants = $('#numContestants').html();
   var isRaffleActive = $('#raffle-status').html();
   var raffle_path_with_id = $('#start-raffle-round').attr('action');
   var rc = new RaffleDBConnector(raffle_path_with_id);
@@ -14,14 +14,16 @@ $(function(){
     $('#start-raffle-round').hide();
     $('#end-raffle').hide();
     $('#exit-raffle').hide();
-    Plinko(rc);
+    
+    Plinko(numEntrants, rc);
+
   } else {
     $('#end-raffle').show();
     $('#exit-raffle').show();
     console.log("Raffle is closed. Send to view page.");
   }
 
-  function Plinko(databaseConnector){
+  function Plinko(numContestants, databaseConnector){
 
     console.log("Inside plinko.");
     var row = 1;
@@ -113,7 +115,9 @@ $(function(){
               modal.style.display = "none";
           }
           databaseConnector.setWinner(winner);
-          $('#start-raffle-round').show();
+          if (numContestants > 1){
+            $('#start-raffle-round').show();
+          }
           $('#end-raffle').show();
           $('#exit-raffle').show();
         }
