@@ -32,7 +32,7 @@ $( document ).ready(function() {
     var startingSquare = Math.floor(Math.random() * (numContestants*2));
     var square = startingSquare + 1;
     var previousSquare = square;
-    var falling_ball_timeout = 65; // ms
+    var falling_ball_timeout = 75; // ms
     var num_rows = 133;
     var extra = 2;
     var wait_time_before_winner_announced = (falling_ball_timeout * (num_rows + extra)) + 1500; // ms
@@ -92,34 +92,38 @@ $( document ).ready(function() {
               whereToMove = 0;
             }
           }
-          if (nextRow > num_rows){ // if on last row
-            console.log("Inside winner's circle");
-            var cellIndex = $('.black').index() / 2;
-            $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
-            var winner = {};
-            winner.username = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
-            winner.id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
-            var modal = document.getElementById('myModal');
-            $('#message_winner').html(winner.username +' has won!');
-            modal.style.display = "block";
-            // Get the modal
-            var modal = document.getElementById('myModal');
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-            databaseConnector.setWinner(winner);
-            if (numContestants > 1){
-              $('#start-raffle-round').show();
-            }
-            $('#end-raffle').show();
-            $('#exit-raffle').show();
-          } // end 'if on last row'
         } // end ball movement
+        if (nextRow > num_rows){ // if on last row
+          console.log("Inside winner's circle");
+          var cellIndex = $('.black').index() / 2;
+          console.log("Winning cell index: " + cellIndex);
+          cellIndex = Math.round(cellIndex);
+          console.log("After flooring: " + cellIndex);
+          // set winning cell to color red
+          $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
+          var winner = {};
+          winner.username = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
+          winner.id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
+          var modal = document.getElementById('myModal');
+          $('#message_winner').html(winner.username +' has won!');
+          modal.style.display = "block";
+          // Get the modal
+          var modal = document.getElementById('myModal');
+
+          // Get the <span> element that closes the modal
+          span = document.getElementsByClassName("close")[0];
+
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function() {
+              modal.style.display = "none";
+          }
+          databaseConnector.setWinner(winner);
+          if (numContestants > 1){
+            $('#start-raffle-round').show();
+          }
+          $('#end-raffle').show();
+          $('#exit-raffle').show();
+        } // end 'if on last row'
       }, falling_ball_timeout);
     })(num_rows);
 
