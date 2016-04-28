@@ -5,45 +5,43 @@
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous">
     </script>
     <script src="application.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <title>JS Raffler</title>
   </head>
   <body>
 
-    <h1>Raffle Registrations</h1>
+    <!-- <p>Date Opened: <span><%= raffle.date %></span></p> -->
+<div class="login">
+<div class="login-triangle"></div>
+<h2 class="login-header">Register Participant</h2>
+  <form id="new-entrant-form" class="login-container" action="api/raffles/<%= raffle.id %>/entrants" method="post">
+    <p><input type="text" placeholder="Name" name="username"></p>
+    <p><input type="submit" name="new-username-submit" value="Register"></p>
+  </form>
+</div>
 
-    <p>Date Opened: <span><%= raffle.date %></span></p>
+    <form class="login" action="/raffles/<%= raffle.id %>" method="get">
+    <input type="submit" name="submit" value="Start First Round">
+    </form>
 
-    <p>
-      <!-- <form id="new-entrant-form" action="api/raffles/<%= raffle.id %>/entrants" method="post"> -->
-      <form id="new-entrant-form" action="/register" method="post">
-        <input type="text" name="username" placeholder="Enter participant username" autofocus>
-        <input type="submit" name="new-username-submit" value="Register Participant">
-      </form>
-    </p>
-
-    <p>
-      <form class="entrants" id="start-first-round" action="/raffles/<%= raffle.id %>" method="get">
-        <input type="submit" name="submit" value="Start First Round">
-      </form>
-    </p>
-
-    <h3 class="entrants">Registered Raffle Entrants</h3>
-    <ul class="entrants" id="entrants-list">
+    <h3>Registered Raffle Entrants</h3>
+    <div class="center">
+    <ul id="entrants-list">
     </ul>
-
+    </div>
     <% if (raffle.active == true) { %>
 
-      <form action="/raffles/<%= raffle.id %>/end" method="post">
+      <form class="login" action="/raffles/<%= raffle.id %>/end" method="post">
         <input type="submit" name="submit" value="End Raffle">
       </form>
 
     <% } else { %>
 
-      <form action="/raffles" method="get">
+      <form class="login" action="/raffles" method="get">
         <input type="submit" name="submit" value="Exit Raffle">
       </form>
 
     <% } %>
-
   </body>
 </html>

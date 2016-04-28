@@ -8,11 +8,10 @@
   "properties": {
     "username": {
       "type": "string",
-      "required": true
+      "default": "anonymous"
     },
     "eligible": {
       "type": "boolean",
-      "required": true,
       "default": true
     },
     "id": {
