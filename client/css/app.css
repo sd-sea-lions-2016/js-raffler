@@ -15,8 +15,6 @@ h3 {
   font-family: 'Lato';
 }
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
-
 body {
   background: transparent;
   font-family: 'Lato';
@@ -137,21 +135,27 @@ li {
 .nametext {
   transform: rotate(90deg) translateY(-40px);
   transform-origin: left top 0;
+  background-color: #ffffe6
+}
+
+#fixed-row {
+position:fixed;
+bottom: 200px;
 }
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #2cb5e8;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid black;
     width: 80%; /* Could be more or less, depending on screen size */
     border-radius: 20px;
 }
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 14px;
     font-weight: bold;

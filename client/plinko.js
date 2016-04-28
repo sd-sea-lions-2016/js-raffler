@@ -1,30 +1,37 @@
 function pageScroll() {
   window.scrollBy(0,5); // horizontal and vertical scroll increments
-  scrolldelay = setTimeout('pageScroll()',13); // scrolls every 150 milliseconds
+  scrolldelay = setTimeout('pageScroll()',1); // scrolls every n milliseconds
 }
 
 $( document ).ready(function() {
       var numContestants = $('#numContestants').html();
+      $('.nametext').css('padding', 10)
+
       var row = 1;
       var previousRow = 0;
       var nextRow = 2
       var startingSquare = Math.floor(Math.random() * (numContestants*2));
       var square = startingSquare + 1;
       var previousSquare = square;
-      var falling_ball_timeout = 100; // ms
+      var falling_ball_timeout = 65; // ms
       var num_rows = 133;
       var extra = 2;
-      var wait_time_before_winner_announced = (falling_ball_timeout * (num_rows + extra)) + 1000; // ms
+      var wait_time_before_winner_announced = (falling_ball_timeout * (num_rows + extra)) + 1500; // ms
       var i = 0;
       pageScroll();
       random2 = Math.floor(Math.random() * (2));
       whereToMove = [0,1][random2];
+      var sound = new Audio("/audio/bgsound.mp3");
+      sound.play();
 
       (function move (i) {
+
+
         setTimeout(function () {
           $('table tbody tr:nth-child('+row+') td:nth-child('+square+')').addClass('black');
           $('table tbody tr:nth-child('+previousRow+') td:nth-child('+previousSquare+')').removeClass('black');
           $('table tbody tr:nth-child('+previousRow+') td:nth-child('+previousSquare+')').css('background-color', 'yellow');
+
 
           var random = Math.floor(Math.random() * (40));
           var selection_array = [0,1];
@@ -49,6 +56,9 @@ $( document ).ready(function() {
 
           if (--i) {
             move(i);
+
+
+
             row++;
             previousRow++;
             nextRow++;
@@ -77,12 +87,13 @@ $( document ).ready(function() {
       })(num_rows);
 
       setTimeout(function(){
+
         var cellIndex = $('.black').index() / 2;
         $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
-        var winner_id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
+        var winnerName = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
         var winner = $('.black').closest('tr').next().children().eq(cellIndex).html(); //NEEDS to look up winner by id
         var modal = document.getElementById('myModal');
-        $('#message_winner').html(winner +' has won!');
+        $('#message_winner').html(winnerName +' has won!');
         modal.style.display = "block";
         // Get the modal
         var modal = document.getElementById('myModal');
