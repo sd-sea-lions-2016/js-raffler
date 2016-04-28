@@ -30,22 +30,23 @@ module.exports = function(app) {
     });
   });
 
-  router.post(/^\/raffles\/\d+\/end/, function(req, res) {
+  router.post(/^\/raffles\/\S+\/end/, function(req, res) {
     console.log("Inside router.post /raffles/:id/end");
-    var re = /raffles\/(\d+)\/end/;
+    var re = /raffles\/(\S+)\/end/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
 
     Raffle.findById(id).then(function(raffle){
       // Raffle is now closed/inactive
       raffle.updateAttribute('active', false);
-      Raffle.render_raffle(id, res);
+      //Raffle.render_raffle(id, res);
+      res.redirect('/raffles');
     });
   });
 
-  router.get(/^\/raffles\/\d+\/?$/, function(req, res) {
+  router.get(/^\/raffles\/\S+\/?$/, function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\d+)/;
+    var re = /raffles\/(\S+)/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);

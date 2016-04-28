@@ -1,55 +1,81 @@
-<p>Raffle #: <%= raffle.id %></p>
-<p>Date: <span><%= raffle.date %></span></p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="/application.js"></script>
+    <script type="text/javascript" src="/plinko.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/plinko.css" defer>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>JS Raffler</title>
+  </head>
+  <body>
 
-<% if (raffle.active) { %>
-  <form action="/raffles/<%= raffle.id %>" method="get">
-    <input type="submit" name="submit" value="Start Next Raffle Round">
-  </form>
-<% } %>
+    <% numContestants = entrants.length %>
+    <div class="hidden" id="hidden-data-container"> 
+      <div id="numContestants"><%= numContestants %></div>
+      <div id="raffle-status"><%= raffle.active %></div>
+    </div>
 
-<% if (alert) { %>
-  <strong><%= alert %></strong>
-<% } %>
+    <table>
+      <tr>
+      <% for (var j = 0; j <= 32; j++) { %>
+          <tr>
+              <% for(var i = 0; i < numContestants; i++){ %>
+                <td></td> <td></td>
+              <% } %>
+          </tr>
+          <tr>
+            <% for(var i = 0; i < numContestants; i++){ %>
+              <td class="blue"></td> <td></td>
+            <% } %>
+          </tr>
+          <tr>
+            <% for(var i = 0; i < numContestants; i++){ %>
+              <td></td> <td></td>
+            <% } %>
+          </tr>
+          <tr>
+            <% for(var i = 0; i < numContestants; i++){ %>
+              <td></td> <td class="blue"></td>
+            <% } %>
+          </tr>
+      <% } %>
+      <tr class="name_row">
+      <% for(var i = 0; i < numContestants; i++){ %>
+      <td colspan="2" class="nametext" username="<%= entrants[i].username %>" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
+      <% } %>
+      </tr>
+      </tr>
+    </table>
 
-<% if (entrants && entrants.length > 0) { %>
-  <ul>
+      <div id='button-div'>
+     <% if (raffle.active) { %>
+      <form class="login" id="start-raffle-round" action="/raffles/<%= raffle.id %>" method="get">
+        <input type="submit" name="submit" value="Start Next Raffle Round">
+      </form>
+    <% } %>
+
     <% if (raffle.active) { %>
-      <lh>Eligible Entrants From This Round:</lh>
+      <form class="login" id="end-raffle" action="/raffles/<%= raffle.id %>/end" method="post">
+        <input type="submit" name="submit" value="End Raffle">
+      </form>
     <% } else { %>
-      <lh>Eligible Entrants At End of Raffle:</lh>
+      <form class="login" id="exit-raffle" action="/raffles" method="get">
+        <input type="submit" name="submit" value="Exit Raffle">
+      </form>
     <% } %>
+    </div>
 
-    <% for ( var i = entrants.length - 1; i >= 0; i--) { %>
-        <% if (winner && winner === entrants[i]) { %>
-          <li><strong><%= entrants[i].username %></strong></li>
-        <% } else { %>
-          <li><%= entrants[i].username %></li>
-        <% } %>
-    <% } %>
-  </ul>
-<% } else { %>
-  <p>No registered entrants</p>
-<% } %>
-
-<% if (previous_winners && previous_winners.length > 0) { %>
-  <ul reversed>
-    <lh>Winners in Previous Rounds:</lh>
-    <% for ( var i = 0; i < previous_winners.length; i++) { %>
-      <li><%= previous_winners[i].username %></li>
-    <% } %>
-  </ul>
-<% } %>
-
-<% if (raffle.active) { %>
-
-  <form action="/raffles/<%= raffle.id %>/end" method="post">
-    <input type="submit" name="submit" value="End Raffle">
-  </form>
-
-<% } else { %>
-
-  <form action="/raffles" method="get">
-    <input type="submit" name="submit" value="Exit Raffle">
-  </form>
-
-<% } %>
+  </body>
+  <footer>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">X</span>
+        <p id="message_winner">Winner</p>
+        <!-- <p>Sponsor</p> -->
+      </div>
+    </div>
+  </footer>
+</html>
