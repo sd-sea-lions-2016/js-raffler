@@ -46,13 +46,11 @@ module.exports = function(Raffle) {
       var eligible_entrants = [];
       var winner = null;
       var previous_winners = [];
-      var alert = null;
 
       var render_round = function(raffle) {
 
         res.render('show', {
           raffle: raffle,
-          alert: alert,
           entrants: eligible_entrants,
           winner: winner,
           previous_winners: previous_winners
@@ -71,19 +69,6 @@ module.exports = function(Raffle) {
           return !entrant.eligible;
         });
 
-        if (raffle.active && eligible_entrants && eligible_entrants.length > 0){
-          var winner_index = Math.floor(Math.random() * eligible_entrants.length);
-          winner = eligible_entrants[winner_index];
-          // update entrant to be ineligible (already won once) from further rounds in this raffle.
-          raffle.entrants.updateById(winner.id, function(err, entrant){
-            entrant.updateAttribute('eligible', false);
-            entrant.save();
-          });
-          alert = "" + winner.username + " has won this round!!!";
-        } else {
-          raffle.updateAttribute('active', false);
-          alert = "Raffle is closed.";
-        }
         render_round(raffle);
       }); // end Raffle.findById.then
     }; // end Raffle.render_raffle()
