@@ -13,7 +13,10 @@
   <body>
 
     <% numContestants = entrants.length %>
-    <span class="hidden" id="numContestants"><%= numContestants %></span>
+    <div class="hidden" id="hidden-data-container"> 
+      <div id="numContestants"><%= numContestants %></div>
+      <div id="raffle-status"><%= raffle.active %></div>
+    </div>
 
     <table>
       <tr>
@@ -49,7 +52,7 @@
 
       <div id='button-div'>
      <% if (raffle.active) { %>
-      <form class="login" action="/raffles/<%= raffle.id %>" method="get">
+      <form class="login" id="start-raffle-round" action="/raffles/<%= raffle.id %>" method="get">
         <input type="submit" name="submit" value="Start Next Raffle Round">
       </form>
     <% } %>
