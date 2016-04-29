@@ -1,7 +1,7 @@
 function pageScroll() {
-  window.scrollBy(0,5); // horizontal and vertical scroll increments
+  window.scrollBy(0,3); // horizontal and vertical scroll increments
   var function_name = 'pageScroll()';
-  scrolldelay = setTimeout(function_name,30); // scrolls every n milliseconds
+  scrolldelay = setTimeout(function_name,25); // scrolls every n milliseconds
 }
 
 function toggleZoomScreen() {
@@ -37,8 +37,8 @@ $( document ).ready(function() {
     var startingSquare = Math.floor(Math.random() * (numContestants*2));
     var square = startingSquare + 1;
     var previousSquare = square;
-    var falling_ball_timeout = 100; // ms
-    var num_rows = 133;
+    var falling_ball_timeout = 85; // ms
+    var num_rows = 89;
     var extra = 2;
     var wait_time_before_winner_announced = (falling_ball_timeout * (num_rows + extra)) + 1500; // ms
     var i = 0;
