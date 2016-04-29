@@ -149,6 +149,11 @@ module.exports = function(Raffle) {
       Raffle.findById(id).then(function(raffle){
         console.log(raffle);
         console.log("Requesting raffle by id and ending");
+        entrants = raffle.entrants();
+
+        eligible_entrants = entrants.filter(function(entrant){
+          return entrant.eligible;
+        });
 
         raffle.updateAttributes({"active": false});
 
