@@ -155,7 +155,7 @@ RaffleDBConnector.prototype.getEntrantUpdateURL = function(){
 RaffleDBConnector.prototype.setWinner = function(winner){
   console.log("Inside RaffleDBConnector.setWinner");
   this.winner = winner;
-  var data = {"eligible": false, "id": this.winner.id };
+  var data = {"eligible": false, "id": this.winner.id, "username": this.winner.username };
   console.log("About to notify DB of winner " + this.winner.username + " with id: " + this.winner.id);
 
   $.ajax({
