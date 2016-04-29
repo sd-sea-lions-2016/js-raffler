@@ -39,7 +39,7 @@ module.exports = function(Raffle) {
 
   Raffle.on('attached', function(app) {
 
-    Raffle.render_raffle = function(id, res){
+    Raffle.run_raffle = function(id, res){
       console.log("Inside render raffle");
       var Raffle = app.models.raffle;
       var raffle = null;
@@ -49,7 +49,7 @@ module.exports = function(Raffle) {
 
       var render_round = function(raffle) {
         console.log("Inside render_round");
-        res.render('show', {
+        res.render('run', {
           raffle: raffle,
           entrants: eligible_entrants,
           winner: winner,

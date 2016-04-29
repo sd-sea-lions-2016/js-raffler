@@ -24,7 +24,7 @@ module.exports = function(app) {
     Raffle.create().then(function(raffle){
       // raffle is now active
       raffle.updateAttribute('active', true);
-      res.render('new', {
+      res.render('admin_registration', {
         raffle: raffle
       });
     });
@@ -42,6 +42,14 @@ module.exports = function(app) {
       //Raffle.render_raffle(id, res);
       res.redirect('/raffles');
     });
+  });
+
+  router.get(/^\/raffles\/\w+\/run$/, function(req, res) {
+    console.log("inside router.get /raffles/:id");
+    var re = /raffles\/(\w+)/;
+    var id = req.url.match(re)[1];
+    var Raffle = app.models.raffle;
+    Raffle.run_raffle(id, res);
   });
 
   router.get(/^\/raffles\/\w+\/?$/, function(req, res) {
@@ -86,7 +94,7 @@ module.exports = function(app) {
   router.get('/register', function(req, res) {
     var Raffle = app.models.raffle;
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
-        res.render('form', {
+        res.render('public_registration', {
           raffle: raffle
         });
     }).catch(function(err) { console.log("No active raffles"); });
