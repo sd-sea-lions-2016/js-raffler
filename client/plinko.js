@@ -169,7 +169,7 @@ RaffleDBConnector.prototype.setWinner = function(winner){
   })
     .fail(function(err){
       console.log(err);
-      alert("DB error: " + err.message);
+      alert("DB error: " + err.statusText + ": " + err.responseText);
     });
 };
 
