@@ -48,7 +48,7 @@ module.exports = function(Raffle) {
       var previous_winners = [];
 
       var render_round = function(raffle) {
-
+        console.log("Inside render_round");
         res.render('show', {
           raffle: raffle,
           entrants: eligible_entrants,
@@ -59,16 +59,21 @@ module.exports = function(Raffle) {
 
       console.log("Round id: " + id);
       Raffle.findById(id).then(function(raffle){
+        console.log(raffle);
+
+        console.log("Requesting raffle by id and getting entrants");
         entrants = raffle.entrants();
 
         eligible_entrants = entrants.filter(function(entrant){
           return entrant.eligible;
         });
 
+        console.log("Requesting previous_winners");
         previous_winners = entrants.filter(function(entrant){
           return !entrant.eligible;
         });
 
+        console.log("Done. Moving on to render function...");
         render_round(raffle);
       }); // end Raffle.findById.then
     }; // end Raffle.render_raffle()
