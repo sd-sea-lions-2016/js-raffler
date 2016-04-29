@@ -106,7 +106,7 @@ $( document ).ready(function() {
           console.log("Winning cell index: " + cellIndex);
           cellIndex = Math.round(cellIndex);
           console.log("After rounding: " + cellIndex);
-          var winner = {}
+          var winner = {};
           winner = {};
           winner.username = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
           winner.id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
@@ -133,7 +133,7 @@ $( document ).ready(function() {
               $('#start-raffle-round').show();
             }
             $('#end-raffle').show();
-            $('#exit-raffle').show();            
+            $('#exit-raffle').show();
           }
         } // end 'if on last row'
       }, falling_ball_timeout);
