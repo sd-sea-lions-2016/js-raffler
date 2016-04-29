@@ -6,7 +6,6 @@
     <script src="/application.js"></script>
     <script type="text/javascript" src="/plinko.js" defer></script>
     <link rel="stylesheet" type="text/css" href="/css/app.css">
-    <link rel="stylesheet" type="text/css" href="/css/plinko.css" defer>
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <title>JS Raffler</title>
   </head>
@@ -15,17 +14,14 @@
 <h4>Date: <span><%= raffle.date.toLocaleString() %></span></h4>
 
 <% if (previous_winners && previous_winners.length > 0) { %>
+  <h3>Winners Circle:</h3>
   <ul class="center">
-    <lh class="entrants_list">Winners in Previous Rounds:</lh>
     <% for ( var i = 0; i < previous_winners.length; i++) { %>
       <li class="entrants_list"><%= previous_winners[i].username %> | Ticket# <%= previous_winners[i].id.split('').splice(0,6).join('') %></li>
     <% } %>
   </ul>
-<% } %>
-
-
-<% if (previous_winners && previous_winners.length < 1 && entrants && entrants.length < 1) { %>
-  <h3>No registered entrants</h3>
+<% } else { %>
+  <h3>No winners</h3>
 <% } %>
 
 <% if (raffle.active) { %>
