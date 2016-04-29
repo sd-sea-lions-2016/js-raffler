@@ -44,7 +44,8 @@ $('#public-registration-form').submit(function(event){
     .done(function(response){
       console.log(response);
       $('#public-registration-form').remove();
-      $('#public-registration-status').html("Your confirmation number is: " + response.id);
+      $('#public-registration-container').html("<div class='login-triangle'></div><h2 class='login-header'>Register for Raffle</h2><p style='background: white'>Your confirmation number is: <br>" + response.id + "</p></div>");
+      $('.login-header').html("Registered for Raffle");
     })
     .fail(function(response){
       $('#public-registration-status').html("There was an issue registering. Try again later: " + response);
