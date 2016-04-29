@@ -13,8 +13,8 @@ $( document ).ready(function() {
   toggleZoomScreen();
   var numEntrants = $('#numContestants').html();
   var isRaffleActive = $('#raffle-status').html();
-  var raffle_path_with_id = $('#start-raffle-round').attr('action');
-  var rc = new RaffleDBConnector(raffle_path_with_id);
+  var raffle_id = $('#raffle-id').html();
+  var rc = new RaffleDBConnector(raffle_id);
 
   if (isRaffleActive){
     $('#start-raffle-round').hide();
@@ -105,31 +105,36 @@ $( document ).ready(function() {
           var cellIndex = $('.black').index() / 2;
           console.log("Winning cell index: " + cellIndex);
           cellIndex = Math.round(cellIndex);
-          console.log("After flooring: " + cellIndex);
-          // set winning cell to color red
-          $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
-          var winner = {};
+          console.log("After rounding: " + cellIndex);
+          var winner = {}
+          winner = {};
           winner.username = $('.black').closest('tr').next().children().eq(cellIndex).attr('username');
           winner.id = $('.black').closest('tr').next().children().eq(cellIndex).attr('id');
+          console.log(winner);
 
-          // Get the modal
-          var modal = document.getElementById('myModal');
-          $('#message_winner').html(winner.username +' has won!');
-          modal.style.display = "block";
+          if (winner.username){
+            // we're done moving. set winning cell to color red
+            $('.black').closest('tr').next().children().eq(cellIndex).css('background-color', 'red');
 
-          // Get the <span> element that closes the modal
-          span = document.getElementsByClassName("close")[0];
+            // Get the modal
+            var modal = document.getElementById('myModal');
+            $('#message_winner').html(winner.username +' has won!\n\n\nTicket# '+winner.id.split('').splice(0,6).join(''));
+            modal.style.display = "block";
 
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function() {
-              modal.style.display = "none";
-          };
-          databaseConnector.setWinner(winner);
-          if (numContestants > 1){
-            $('#start-raffle-round').show();
+            // Get the <span> element that closes the modal
+            span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+                modal.style.display = "none";
+            };
+            databaseConnector.setWinner(winner);
+            if (numContestants > 1){
+              $('#start-raffle-round').show();
+            }
+            $('#end-raffle').show();
+            $('#exit-raffle').show();            
           }
-          $('#end-raffle').show();
-          $('#exit-raffle').show();
         } // end 'if on last row'
       }, falling_ball_timeout);
     })(num_rows);
@@ -138,12 +143,13 @@ $( document ).ready(function() {
 
 }); // end jQuery
 
-function RaffleDBConnector(path){
-  this.raffle_path_with_id = path;
+function RaffleDBConnector(raffle_id){
+  this.raffle_id = raffle_id;
 }
 
 RaffleDBConnector.prototype.getEntrantUpdateURL = function(){
-  var url = window.location.protocol + "//" + window.location.host + "/api" + this.raffle_path_with_id + "/entrants/" + this.winner.id;
+  var url = window.location.protocol + "//" + window.location.host + "/api/raffles/" + this.raffle_id + "/entrants/" + this.winner.id;
+  //var url = "/api/" + this.raffle_id + "/entrants/" + this.winner.id;
   console.log("url: " + url);
   return url;
 };
@@ -151,7 +157,7 @@ RaffleDBConnector.prototype.getEntrantUpdateURL = function(){
 RaffleDBConnector.prototype.setWinner = function(winner){
   console.log("Inside RaffleDBConnector.setWinner");
   this.winner = winner;
-  var data = {"eligible": false, "id": this.winner.id };
+  var data = {"eligible": false, "id": this.winner.id, "username": this.winner.username };
   console.log("About to notify DB of winner " + this.winner.username + " with id: " + this.winner.id);
 
   $.ajax({
@@ -164,7 +170,8 @@ RaffleDBConnector.prototype.setWinner = function(winner){
       console.log(response);
   })
     .fail(function(err){
-      alert("DB error: " + err);
+      console.log(err);
+      alert("DB error: " + err.statusText + ": " + err.responseText);
     });
 };
 

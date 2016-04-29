@@ -17,12 +17,12 @@
 <div class="login-triangle"></div>
 <h2 class="login-header">Register Participant</h2>
   <form id="new-entrant-form" class="login-container" action="api/raffles/<%= raffle.id %>/entrants" method="post">
-    <p><input type="text" placeholder="Name" name="username"></p>
+    <p><input type="text" placeholder="Name" name="username" autofocus required></p>
     <p><input type="submit" name="new-username-submit" value="Register"></p>
   </form>
 </div>
 
-    <form class="login" action="/raffles/<%= raffle.id %>" method="get">
+    <form class="login" action="/raffles/<%= raffle.id %>/run" method="get">
     <input type="submit" name="submit" value="Start First Round">
     </form>
 

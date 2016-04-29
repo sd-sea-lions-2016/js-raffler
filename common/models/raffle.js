@@ -39,7 +39,7 @@ module.exports = function(Raffle) {
 
   Raffle.on('attached', function(app) {
 
-    Raffle.render_raffle = function(id, res){
+    Raffle.run_raffle = function(id, res){
       console.log("Inside render raffle");
       var Raffle = app.models.raffle;
       var raffle = null;
@@ -49,7 +49,7 @@ module.exports = function(Raffle) {
 
       var render_round = function(raffle) {
         console.log("Inside render_round");
-        res.render('show', {
+        res.render('run', {
           raffle: raffle,
           entrants: eligible_entrants,
           winner: winner,
@@ -75,6 +75,56 @@ module.exports = function(Raffle) {
 
         console.log("Done. Moving on to render function...");
         render_round(raffle);
+      }); // end Raffle.findById.then
+    }; // end Raffle.render_raffle()
+
+
+    Raffle.render_raffle = function(id, res){
+      console.log("Inside render raffle");
+      var Raffle = app.models.raffle;
+      var raffle = null;
+      var eligible_entrants = [];
+      var winner = null;
+      var previous_winners = [];
+
+      var render_show = function(raffle) {
+        console.log("Inside render_show");
+        res.render('show', {
+          raffle: raffle,
+          entrants: eligible_entrants,
+          previous_winners: previous_winners
+        });
+      };
+
+      Raffle.findById(id).then(function(raffle){
+        console.log(raffle);
+
+        console.log("Requesting raffle by id and getting entrants");
+        entrants = raffle.entrants();
+
+        eligible_entrants = entrants.filter(function(entrant){
+          return entrant.eligible;
+        });
+
+        eligible_entrants_sorted = eligible_entrants.sort(function compare(a, b) {
+          if (a.username < b.username) {
+            return -1;
+          }
+          if (a.username > b.username) {
+            return 1;
+          }
+          // a must be equal to b
+          return 0;
+        });
+
+
+        console.log("Requesting previous_winners");
+        previous_winners = entrants.filter(function(entrant){
+          return !entrant.eligible;
+        });
+
+        console.log("Done. Moving on to render function...");
+        render_show(raffle);
       }); // end Raffle.findById.then
     }; // end Raffle.render_raffle()
 

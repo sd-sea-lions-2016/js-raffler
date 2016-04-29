@@ -24,7 +24,7 @@ module.exports = function(app) {
     Raffle.create().then(function(raffle){
       // raffle is now active
       raffle.updateAttribute('active', true);
-      res.render('new', {
+      res.render('admin_registration', {
         raffle: raffle
       });
     });
@@ -35,13 +35,15 @@ module.exports = function(app) {
     var re = /raffles\/(\w+)\/end/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
+    Raffle.render_raffle(id, res);
+  });
 
-    Raffle.findById(id).then(function(raffle){
-      // Raffle is now closed/inactive
-      raffle.updateAttribute('active', false);
-      //Raffle.render_raffle(id, res);
-      res.redirect('/raffles');
-    });
+  router.get(/^\/raffles\/\w+\/run$/, function(req, res) {
+    console.log("inside router.get /raffles/:id");
+    var re = /raffles\/(\w+)/;
+    var id = req.url.match(re)[1];
+    var Raffle = app.models.raffle;
+    Raffle.run_raffle(id, res);
   });
 
   router.get(/^\/raffles\/\w+\/?$/, function(req, res) {
@@ -86,7 +88,7 @@ module.exports = function(app) {
   router.get('/register', function(req, res) {
     var Raffle = app.models.raffle;
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
-        res.render('form', {
+        res.render('public_registration', {
           raffle: raffle
         });
     }).catch(function(err) { console.log("No active raffles"); });
@@ -106,7 +108,7 @@ module.exports = function(app) {
           var myNumber = req.body.To;
 
           raffle.entrants.create({"username": username}, function(err,entrant){
-            var body = 'You are registered in the SDJS raffle. Your confirmation number is: ' + entrant.id;
+            var body = 'You are registered in the SDJS raffle. Your ticket # is: ' + entrant.id.split('').splice(0,6).join('');
 
             // Twilio Credentials
             var accountSid = process.env.ACCOUNT_SID;

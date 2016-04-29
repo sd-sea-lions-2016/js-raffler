@@ -1,5 +1,5 @@
 var function_name = "updateEntrantsList()";
-setInterval ( function_name, 5000 );
+setInterval ( function_name, 10000 );
 
 function updateEntrantsList(){
   var form = $('#new-entrant-form');

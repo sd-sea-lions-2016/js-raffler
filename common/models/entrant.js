@@ -3,7 +3,7 @@ module.exports = function(Entrant) {
   // Entrant.disableRemoteMethod("create", true);
   Entrant.disableRemoteMethod("upsert", true);
   Entrant.disableRemoteMethod("updateAll", true);
-  Entrant.disableRemoteMethod("updateAttributes", false);
+  //Entrant.disableRemoteMethod("updateAttributes", false);
 
   // Entrant.disableRemoteMethod("find", true);
   // Entrant.disableRemoteMethod("findById", true);
