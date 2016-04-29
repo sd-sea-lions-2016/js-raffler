@@ -146,7 +146,7 @@ function RaffleDBConnector(raffle_id){
 }
 
 RaffleDBConnector.prototype.getEntrantUpdateURL = function(){
-  var url = window.location.protocol + "//" + window.location.host + "/api/" + this.raffle_id + "/entrants/" + this.winner.id;
+  var url = window.location.protocol + "//" + window.location.host + "/api/raffles/" + this.raffle_id + "/entrants/" + this.winner.id;
   //var url = "/api/" + this.raffle_id + "/entrants/" + this.winner.id;
   console.log("url: " + url);
   return url;
