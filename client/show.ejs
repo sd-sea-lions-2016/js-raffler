@@ -14,8 +14,8 @@
 <h4>Date: <span><%= raffle.date.toLocaleString() %></span></h4>
 
 <% if (previous_winners && previous_winners.length > 0) { %>
+  <h3>Winners Circle:</h3>
   <ul class="center">
-    <lh class="entrants_list">Winners in Previous Rounds:</lh>
     <% for ( var i = 0; i < previous_winners.length; i++) { %>
       <li class="entrants_list"><%= previous_winners[i].username %> | Ticket# <%= previous_winners[i].id.split('').splice(0,6).join('') %></li>
     <% } %>
