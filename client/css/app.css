@@ -23,6 +23,13 @@ h3 {
   font-size: 65px;
 }
 
+h4 {
+  text-align: center;
+  font-family: 'Lato';
+  /*text-shadow: 2px 2px 8px #c8c9c0;*/
+  font-size: 40px;
+}
+
 body {
   background: transparent;
   font-family: 'Lato';
@@ -205,4 +212,12 @@ margin-bottom: 50px;
 
 #entrants-list {
   font-size: 30px;
+}
+
+.entrants_list {
+  font-size: 35px;
+}
+
+#start_round {
+  margin-top: -60px;
 }

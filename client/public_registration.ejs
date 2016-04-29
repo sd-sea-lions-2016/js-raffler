@@ -13,19 +13,20 @@
     <h1>Raffle Registration</h1>
 
     <% if (raffle) { %>
-      <p class="center">Date Opened: <span><%= raffle.date.toLocaleString() %></span></p>
 
       <div id="public-registration-status">
       </div>
 
-      <p>
-        <form id="public-registration-form" action="/register" method="post">
-          <input type="text" name="username" placeholder="Enter participant username" required autofocus>
-          <input type="submit" name="public-registration" value="Register Participant">
+      <div id="public-registration-container" class="login">
+      <div class="login-triangle"></div>
+        <h2 class="login-header">Register for Raffle</h2>
+        <form  class="login-container" id="public-registration-form" action="api/raffles/<%= raffle.id %>/entrants" method="post">
+          <p><input type="text" placeholder="Name" name="username" autofocus required></p>
+          <p><input type="submit" name="new-username-submit" value="Register"></p>
         </form>
-      </p>
+      </div>
     <% } else { %>
-      <p>Sorry, there are no open raffles. Try again later.</p>
+      <p class="login-header">Sorry, there are no open raffles. Try again later.</p>
     <% } %>
 
   </body>
