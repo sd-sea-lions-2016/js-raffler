@@ -5,7 +5,7 @@ function pageScroll() {
 }
 
 function toggleZoomScreen() {
-document.body.style.zoom="50%"
+document.body.style.zoom="50%";
 }
 
 $( document ).ready(function() {
