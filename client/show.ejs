@@ -21,6 +21,8 @@
       <li class="entrants_list"><%= previous_winners[i].username %> | Ticket# <%= previous_winners[i].id.split('').splice(0,6).join('') %></li>
     <% } %>
   </ul>
+<% else %>
+  <h3>No winners</h3>
 <% } %>
 
 
