@@ -108,7 +108,7 @@ module.exports = function(app) {
           var myNumber = req.body.To;
 
           raffle.entrants.create({"username": username}, function(err,entrant){
-            var body = 'You are registered in the SDJS raffle. Your confirmation number is: ' + entrant.id;
+            var body = 'You are registered in the SDJS raffle. Your ticket # is: ' + entrant.id.split('').splice(0,6).join('');
 
             // Twilio Credentials
             var accountSid = process.env.ACCOUNT_SID;
