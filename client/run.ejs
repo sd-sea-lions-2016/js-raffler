@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <script src="/application.js"></script>
+    <script type="text/javascript" src="/plinko.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
+    <link rel="stylesheet" type="text/css" href="/css/plinko.css" defer>
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>JS Raffler</title>
+  </head>
+  <body>
+
+    <% numContestants = entrants.length %>
+    <div class="hidden" id="hidden-data-container">
+      <div id="numContestants"><%= numContestants %></div>
+      <div id="raffle-status"><%= raffle.active %></div>
+      <div id="raffle-id"><%= raffle.id %></div>
+    </div>
+
+    <table>
+      <tr>
+      <% for (var j = 0; j <= 21; j++) { %>
+          <tr>
+              <% for(var i = 0; i < numContestants; i++){ %>
+                <td></td> <td></td>
+              <% } %>
+          </tr>
+          <tr>
+            <% for(var i = 0; i < numContestants; i++){ %>
+              <td class="blue"></td> <td></td>
+            <% } %>
+          </tr>
+          <tr>
+            <% for(var i = 0; i < numContestants; i++){ %>
+              <td></td> <td></td>
+            <% } %>
+          </tr>
+          <tr>
+            <% for(var i = 0; i < numContestants; i++){ %>
+              <td></td> <td class="blue"></td>
+            <% } %>
+          </tr>
+      <% } %>
+      <tr id='fixed-row' class="name_row">
+      <% for(var i = 0; i < numContestants; i++){ %>
+      <td colspan="2" class="nametext" username="<%= entrants[i].username %>" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
+      <% } %>
+      </tr>
+    </table>
+
+      <div id='button-div'>
+     <% if (raffle.active) { %>
+      <form class="login" id="start-raffle-round" action="/raffles/<%= raffle.id %>/run" method="get">
+        <input type="submit" name="submit" value="Start Next Raffle Round">
+      </form>
+    <% } %>
+
+    <% if (raffle.active) { %>
+      <form class="login" id="end-raffle" action="/raffles/<%= raffle.id %>/end" method="post">
+        <input type="submit" name="submit" value="End Raffle">
+      </form>
+    <% } else { %>
+      <form class="login" id="exit-raffle" action="/raffles/<%= raffle.id %>" method="get">
+        <input type="submit" name="submit" value="Exit Raffle">
+      </form>
+    <% } %>
+    </div>
+
+  </body>
+  <footer>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">X</span>
+        <p id="message_winner">Winner</p>
+        <!-- <p>Sponsor</p> -->
+      </div>
+    </div>
+  </footer>
+</html>

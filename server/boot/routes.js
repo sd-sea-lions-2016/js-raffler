@@ -35,13 +35,7 @@ module.exports = function(app) {
     var re = /raffles\/(\w+)\/end/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
-
-    Raffle.findById(id).then(function(raffle){
-      // Raffle is now closed/inactive
-      raffle.updateAttribute('active', false);
-      //Raffle.render_raffle(id, res);
-      res.redirect('/raffles');
-    });
+    Raffle.render_raffle(id, res);
   });
 
   router.get(/^\/raffles\/\w+\/run$/, function(req, res) {
