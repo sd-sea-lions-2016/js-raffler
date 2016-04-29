@@ -29,6 +29,8 @@ $( document ).ready(function() {
     console.log("Raffle is closed. Send to view page.");
   }
 
+
+
   function Plinko(numContestants, databaseConnector){
     console.log("Inside plinko.");
     var row = 1;

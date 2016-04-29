@@ -151,14 +151,15 @@ li {
   transform: rotate(90deg) translateY(-40px);
   transform-origin: left top 0;
   background-color: #ffffe6;
-  padding: 19px;
+  /*padding: 19px;*/
+  /*max-width: 20px;*/
   /*padding-bottom: 80px;*/
 }
 
-#fixed-row {
+/*#fixed-row {
 position:fixed;
 bottom: 200px;
-}
+}*/
 
 /* Modal Content/Box */
 .modal-content {
