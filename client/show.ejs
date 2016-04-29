@@ -17,7 +17,7 @@
   <ul>
     <lh>Winners in Previous Rounds:</lh>
     <% for ( var i = 0; i < previous_winners.length; i++) { %>
-      <li><%= previous_winners[i].username %></li>
+      <li><%= previous_winners[i].username %> | Ticket# <%= previous_winners[i].id.split('').splice(0,6).join('') %></li>
     <% } %>
   </ul>
 <% } %>
