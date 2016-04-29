@@ -5,6 +5,7 @@
     <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
     <script src="application.js"></script>
     <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <title>JS Raffler</title>
   </head>
   <body>
@@ -12,13 +13,13 @@
     <h1>Raffle Registration</h1>
 
     <% if (raffle) { %>
-      <p>Date Opened: <span><%= raffle.date %></span></p>
+      <p class="center">Date Opened: <span><%= raffle.date.toLocaleString() %></span></p>
 
       <div id="public-registration-status">
       </div>
 
       <p>
-        <form id="public-registration-form" action="/register" method="post">
+        <form class="login" id="public-registration-form" action="/register" method="post">
           <input type="text" name="username" placeholder="Enter participant username" autofocus>
           <input type="submit" name="public-registration" value="Register Participant">
         </form>

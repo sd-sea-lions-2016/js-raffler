@@ -6,13 +6,21 @@ html {
     background: linear-gradient(-90deg, #2cb5e8, #0fb8ad);
   }
 
+.table-shadow {
+  text-shadow: 2px 2px 8px #c8c9c0;
+}
+
 h1 {
   text-align: center;
+  text-shadow: 2px 2px 8px #c8c9c0;
+  font-size: 100px
 }
 
 h3 {
   text-align: center;
   font-family: 'Lato';
+  text-shadow: 2px 2px 8px #c8c9c0;
+  font-size: 65px;
 }
 
 body {
@@ -25,9 +33,13 @@ body {
 }
 
 .login {
+  padding-top: -100px;
   width: 400px;
-  margin: 16px auto;
+  margin: 50px auto;
   font-size: 16px;
+  /*margin-bottom: 1000px;*/
+
+
 }
 
 #login {
@@ -61,6 +73,7 @@ body {
 .login-container {
   background: #ebebeb;
   padding: 12px;
+  margin-bottom: 100px
 }
 
 /* Every row inside .login-container is defined with p tags */
@@ -187,4 +200,8 @@ bottom: 90px;
 #fixed-row {
 margin-bottom: 50px;
 
+}
+
+#entrants-list {
+  font-size: 30px;
 }
