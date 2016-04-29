@@ -17,7 +17,7 @@ describe('routes', function(){
 
   before(function(done) {
     require('./start-server');
-    var raffle = {"date": "2016-04-28","active": true};
+    var raffle = {"date": "2016-04-28","active": true,"id": "1"};
     api
       .post('/api/raffles')
       .send(raffle);
