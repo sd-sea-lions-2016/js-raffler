@@ -128,6 +128,36 @@ module.exports = function(Raffle) {
       }); // end Raffle.findById.then
     }; // end Raffle.render_raffle()
 
+
+    Raffle.end_raffle = function(id, res){
+      console.log("Inside end raffle");
+      var Raffle = app.models.raffle;
+      var raffle = null;
+      var eligible_entrants = [];
+      var winner = null;
+      var previous_winners = [];
+
+      var render_show = function(raffle) {
+        console.log("Inside render_show for end raffle");
+        res.render('show', {
+          raffle: raffle,
+          entrants: eligible_entrants,
+          previous_winners: previous_winners
+        });
+      };
+
+      Raffle.findById(id).then(function(raffle){
+        console.log(raffle);
+        console.log("Requesting raffle by id and ending");
+
+        raffle.updateAttributes({"active": false});
+
+        console.log("Done. Moving on to render function...");
+        render_show(raffle);
+      }); // end Raffle.findById.then
+    }; // end Raffle.render_raffle()
+
+
   }); // end Raffle.on('attach')
 
 }; // end module.exports
