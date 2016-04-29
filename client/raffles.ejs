@@ -3,36 +3,38 @@
   <head>
     <meta charset="utf-8">
     <title>SDJS Raffler</title>
+    <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
   </head>
   <body>
   <h1>SDJS Raffler<% if (typeof username !== 'undefined') { %> - Welcome <%= username %><% } %></h1>
-
       <% if (typeof username !== 'undefined') { %>
-        <form action='/raffles' method="post">
+        <form action='/raffles' method="post" class="login">
           <input type="submit" name="submit" value="Create New Raffle">
         </form>
       <% } else { %>
-        <form action='/' method="get">
+        <form action='/' method="get" class="login">
           <input type="submit" name="submit" value="Login">
         </form>
       <% } %>
 
       <br>
 
-    <table border=1 cellpadding=5>
-      <tr>
+    <table class="login">
+      <tr class="table-shadow">
         <th>ID</th>
         <th>Past Raffles</th>
-        <th># Registered</th>
+        <th>Active</th>
       </tr>
 
       <% for ( var i = raffles.length - 1; i >= 0; i--) { %>
-      <tr>
+      <tr class="login-container">
         <td><%= raffles[i].id %></td>
-        <td><a href="/raffles/<%= raffles[i].id %>"><%= raffles[i].date %></a></td>
-        <td>TBD</td>
+        <td><a href="/raffles/<%= raffles[i].id %>"><%= raffles[i].date.toLocaleString() %></a></td>
+        <td><%= raffles[i].active %></td>
+      </tr>
       <% } %>
-
     </table>
   </body>
 </html>

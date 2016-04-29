@@ -1,30 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <title>JS Raffler</title>
+  </head>
+  <body>
 <p>Raffle #: <%= raffle.id %></p>
 <p>Date: <span><%= raffle.date %></span></p>
 
-<% if (raffle.active) { %>
-  <form action="/raffles/<%= raffle.id %>" method="get">
-    <input type="submit" name="submit" value="Start Next Raffle Round">
-  </form>
-<% } %>
-
-<% if (alert) { %>
-  <strong><%= alert %></strong>
-<% } %>
-
 <% if (entrants && entrants.length > 0) { %>
   <ul>
-    <% if (raffle.active) { %>
-      <lh>Eligible Entrants From This Round:</lh>
-    <% } else { %>
       <lh>Eligible Entrants At End of Raffle:</lh>
-    <% } %>
 
     <% for ( var i = entrants.length - 1; i >= 0; i--) { %>
-        <% if (winner && winner === entrants[i]) { %>
-          <li><strong><%= entrants[i].username %></strong></li>
-        <% } else { %>
-          <li><%= entrants[i].username %></li>
-        <% } %>
+      <li><%= entrants[i].username %></li>
     <% } %>
   </ul>
 <% } else { %>
@@ -32,24 +22,15 @@
 <% } %>
 
 <% if (previous_winners && previous_winners.length > 0) { %>
-  <ul reversed>
+  <ul>
     <lh>Winners in Previous Rounds:</lh>
     <% for ( var i = 0; i < previous_winners.length; i++) { %>
-      <li><%= previous_winners[i].username %></li>
+      <li><%= previous_winners[i].username %> | Ticket# <%= previous_winners[i].id.split('').splice(0,6).join('') %></li>
     <% } %>
   </ul>
 <% } %>
 
-<% if (raffle.active) { %>
 
-  <form action="/raffles/<%= raffle.id %>/end" method="post">
-    <input type="submit" name="submit" value="End Raffle">
-  </form>
-
-<% } else { %>
-
-  <form action="/raffles" method="get">
-    <input type="submit" name="submit" value="Exit Raffle">
-  </form>
-
-<% } %>
+<form action="/raffles" method="get">
+  <input type="submit" name="submit" value="Exit Raffle">
+</form>

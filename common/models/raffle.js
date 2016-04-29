@@ -39,20 +39,18 @@ module.exports = function(Raffle) {
 
   Raffle.on('attached', function(app) {
 
-    Raffle.render_raffle = function(id, res){
+    Raffle.run_raffle = function(id, res){
       console.log("Inside render raffle");
       var Raffle = app.models.raffle;
       var raffle = null;
       var eligible_entrants = [];
       var winner = null;
       var previous_winners = [];
-      var alert = null;
 
       var render_round = function(raffle) {
-
-        res.render('show', {
+        console.log("Inside render_round");
+        res.render('run', {
           raffle: raffle,
-          alert: alert,
           entrants: eligible_entrants,
           winner: winner,
           previous_winners: previous_winners
@@ -61,30 +59,72 @@ module.exports = function(Raffle) {
 
       console.log("Round id: " + id);
       Raffle.findById(id).then(function(raffle){
+        console.log(raffle);
+
+        console.log("Requesting raffle by id and getting entrants");
         entrants = raffle.entrants();
 
         eligible_entrants = entrants.filter(function(entrant){
           return entrant.eligible;
         });
 
+        console.log("Requesting previous_winners");
         previous_winners = entrants.filter(function(entrant){
           return !entrant.eligible;
         });
 
-        if (raffle.active && eligible_entrants && eligible_entrants.length > 0){
-          var winner_index = Math.floor(Math.random() * eligible_entrants.length);
-          winner = eligible_entrants[winner_index];
-          // update entrant to be ineligible (already won once) from further rounds in this raffle.
-          raffle.entrants.updateById(winner.id, function(err, entrant){
-            entrant.updateAttribute('eligible', false);
-            entrant.save();
-          });
-          alert = "" + winner.username + " has won this round!!!";
-        } else {
-          raffle.updateAttribute('active', false);
-          alert = "Raffle is closed.";
-        }
+        console.log("Done. Moving on to render function...");
         render_round(raffle);
+      }); // end Raffle.findById.then
+    }; // end Raffle.render_raffle()
+
+
+    Raffle.render_raffle = function(id, res){
+      console.log("Inside render raffle");
+      var Raffle = app.models.raffle;
+      var raffle = null;
+      var eligible_entrants = [];
+      var winner = null;
+      var previous_winners = [];
+
+      var render_show = function(raffle) {
+        console.log("Inside render_show");
+        res.render('show', {
+          raffle: raffle,
+          entrants: eligible_entrants,
+          previous_winners: previous_winners
+        });
+      };
+
+      Raffle.findById(id).then(function(raffle){
+        console.log(raffle);
+
+        console.log("Requesting raffle by id and getting entrants");
+        entrants = raffle.entrants();
+
+        eligible_entrants = entrants.filter(function(entrant){
+          return entrant.eligible;
+        });
+
+        eligible_entrants_sorted = eligible_entrants.sort(function compare(a, b) {
+          if (a.username < b.username) {
+            return -1;
+          }
+          if (a.username > b.username) {
+            return 1;
+          }
+          // a must be equal to b
+          return 0;
+        });
+
+
+        console.log("Requesting previous_winners");
+        previous_winners = entrants.filter(function(entrant){
+          return !entrant.eligible;
+        });
+
+        console.log("Done. Moving on to render function...");
+        render_show(raffle);
       }); // end Raffle.findById.then
     }; // end Raffle.render_raffle()
 
