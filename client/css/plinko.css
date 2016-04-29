@@ -1,0 +1,54 @@
+html {
+    background: blue;
+    background: -webkit-linear-gradient(-90deg, #2cb5e8, #0fb8ad);
+    background: -o-linear-gradient(-90deg, #2cb5e8, #0fb8ad);
+    background: -moz-linear-gradient(-90deg, #2cb5e8, #0fb8ad);
+    background: linear-gradient(-90deg, #2cb5e8, #0fb8ad)
+  }
+
+ table {
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+#names_table {
+  max-width: 100%;
+}
+
+.black {
+  background-image: url("http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/black-inlay-crystal-clear-bubble-icons-sports-hobbies/042580-black-inlay-crystal-clear-bubble-icon-sports-hobbies-ball.png");
+  align-items: center;
+  background-size: 35px;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 35px;
+  width: 35px;
+}
+
+.white {
+  background-color: white;
+}
+
+.blue {
+  /*background-color: blue;*/
+  background-size: 42px 35px;
+  background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkXGBYPDRgMDRsUFRwWIB0tIiAdKh8kKDQsJCYwLB8oITEkKjIsMi4yLCc0PTcuNyw4NysBCgoKDQwNGhAQGjclICU3NzE0Nzc2NzcsLTc0NzcsNDQ1LDcsLCwsNDQ0LC80LCssLDQ3NCw0NDQsNCwsLCs0NP/AABEIAEAAQAMBIgACEQEDEQH/xAAaAAACAwEBAAAAAAAAAAAAAAAEBQECAwAG/8QAOhAAAgEDAgIHBAgFBQAAAAAAAQIDAAQRBSESMRMUIkFRYdEVcaHBI3J0gZGSlLE1UmKE8CQlMjM0/8QAGQEBAQEBAQEAAAAAAAAAAAAAAgEDAAUE/8QAIREAAgEEAgMBAQAAAAAAAAAAAQIAAxESE1FhITFBcRT/2gAMAwEAAhEDEQA/APNQmEQq7rxyHDOW3JJG5yal+g7kH7Vl7O1KICFrG4ZxgfRxl/ivyqF07Vf+J0u9P1oGA/E8q+HWbz3tyAfJusduea4PmxonSGjh1mx6JsP0iLkHGxPL8NqVra6mcKbC78gIWPyorTbW+t9Xs5bi0uI41dGcyQsuADknceHdSFMgwPXQqbWhE8wu/prr6SVsF2I3zjx+XcNuVYGK13PDj7zWb2WqBeIWNyU5ZWJivhzG1UFlqroeDTbw/Vgb0o625mm5LfJrw2wJ7PkOZrfTv4xZmFyqmRA3CSOySAR94291LuoayDtpV9jl/wCZ/St7WC+t9Ssku7O5iyw4eKMqTg5J3G+OZ8vCmEIMyesjKROnSGVGwgVhuMUxvo44r66jZEZukkySB/NSp7LUQoU2c6scDtIQAT4k8vvrrptVuryWWPTrrLOzgLEzDJbOAQN/nRwYraI1qavfqEtJAHwIl4fcDXCeNSSkSr7tqEGnaud/Zd6P7dvSo9laueWl3v6dvSu1S7xD4HjEsDpDwsHVgcbbGuRYWt4lcKDgHurOy0zV3u7dZdMulj4gzl4yoCjcnJ8hWEljrCZJ065K54QViJB7uYrjTNpBXTI/kMZopCAwVvDarZhCEcMeO/agBY6yTg6Te/p29KltP1gr/C70H7O/pR1Gaf0JDgsQGRHH+QGq8MJO0aflFLFvARwcXuxVRfhHxJlW/qGDU1tKayxi6dCrSxMEYdocBwQQcg57q3uha3F5dXKAyI7vIpGRsWOD5eO9K/aCODGvbY7DHMk1e8vBHczRSnGGbu9e6li2MzZ0zB6jBorb/sIXHI45VbitCOHgjz9Wk3Xo+Rfb31LPKqCRopBGd8lDw7+dHUeZdqiNLYqNRtsIFbjThKjG3Fv+NdAkZQSzASMdzxcyT/nOg9KulfV7FAnEekUkeQOT8BQ010qSiJGbC7DpFwfw7vDFIo2NoUdA5Mdy3NywxLfXRHPedvWpNxKUZUncNjskyY+Pzpd1XU8ZbTr8H7O/pV+r6g46OPTrzJ7PagcD4j96mDcxZ0uofc31wdQvE63dCPpXCKJmCheLGAM9w7qr7SnGQb68U93075/egruw1IXU4XTrthxMVIhYggnY5ArHqOqgn/bbw++3f0plST7maPTCjwI0OqXGOzfXjeP+ocfOsxcTFkma9nxkM/FIzbZ3pctnqobbTb4Hyt39K7quq8TKNOvOJuzkwPtnv5VArA+DKXpEeQI0le4Sedev3XAHYKFkKjC9kbcuQqBe3C7JeXS/Vnf1oC6t9Va6uCun33AWYjED8s58Ky6tqyElNOviPszelcyuT7nI9EKBYT//2Q==");
+}
+
+.nametext {
+  text-align: center;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  width: 35px;
+  height: 35px;
+}
+
+#names {
+  max-width: 100%;
+}
+
+td {
+  width: 35px;
+  height: 35px;
+}

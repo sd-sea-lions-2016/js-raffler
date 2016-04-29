@@ -24,28 +24,31 @@ module.exports = function(app) {
     Raffle.create().then(function(raffle){
       // raffle is now active
       raffle.updateAttribute('active', true);
-      res.render('new', {
+      res.render('admin_registration', {
         raffle: raffle
       });
     });
   });
 
-  router.post(/^\/raffles\/\d+\/end/, function(req, res) {
+  router.post(/^\/raffles\/\w+\/end/, function(req, res) {
     console.log("Inside router.post /raffles/:id/end");
-    var re = /raffles\/(\d+)\/end/;
+    var re = /raffles\/(\w+)\/end/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
-
-    Raffle.findById(id).then(function(raffle){
-      // Raffle is now closed/inactive
-      raffle.updateAttribute('active', false);
-      Raffle.render_raffle(id, res);
-    });
+    Raffle.end_raffle(id, res);
   });
 
-  router.get(/^\/raffles\/\d+\/?$/, function(req, res) {
+  router.get(/^\/raffles\/\w+\/run$/, function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\d+)/;
+    var re = /raffles\/(\w+)/;
+    var id = req.url.match(re)[1];
+    var Raffle = app.models.raffle;
+    Raffle.run_raffle(id, res);
+  });
+
+  router.get(/^\/raffles\/\w+\/?$/, function(req, res) {
+    console.log("inside router.get /raffles/:id");
+    var re = /raffles\/(\w+)/;
     var id = req.url.match(re)[1];
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);
@@ -85,7 +88,7 @@ module.exports = function(app) {
   router.get('/register', function(req, res) {
     var Raffle = app.models.raffle;
     Raffle.findOne({where: {"active": true}}).then(function(raffle){
-        res.render('form', {
+        res.render('public_registration', {
           raffle: raffle
         });
     }).catch(function(err) { console.log("No active raffles"); });
@@ -99,16 +102,34 @@ module.exports = function(app) {
         console.log("Active raffle found");
         if ( req.body.Body ) {
           console.log("We have a text message.");
-          console.log(req.body.Body);
-          raffle.entrants.create({"username": req.body.Body}, function(err,entrant){
 
-            // some code to sent a text to req.body.from via the twilio api
+          var username = req.body.Body;
+          var phoneNumber = req.body.From;
+          var myNumber = req.body.To;
+
+          raffle.entrants.create({"username": username}, function(err,entrant){
+            var body = 'You are registered in the SDJS raffle. Your ticket # is: ' + entrant.id.split('').splice(0,6).join('');
+
+            // Twilio Credentials
+            var accountSid = process.env.ACCOUNT_SID;
+            var authToken = process.env.AUTH_TOKEN;
+
+            var client = require('twilio')(accountSid, authToken);
+            client.messages.create({
+            	to: phoneNumber,
+            	from: "+18588425841",
+            	body: body,
+            }, function(err, message) {
+              console.log(err);
+            	console.log(message.sid);
+            });
 
           });
         } else {
           console.log("We got a web registration of either admin or public");
-          console.log(req.body);
           raffle.entrants.create({"username": req.body.username}, function(err,entrant){
+            console.log(err);
+            console.log(entrant);
             res.send(entrant);
           });
         }
