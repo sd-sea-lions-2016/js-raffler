@@ -116,7 +116,7 @@ $( document ).ready(function() {
 
             // Get the modal
             var modal = document.getElementById('myModal');
-            $('#message_winner').html(winner.username +' has won!');
+            $('#message_winner').html(winner.username +' has won!\n\n\nTicket#'+winner.id.split('').splice(0,6).join(''););
             modal.style.display = "block";
 
             // Get the <span> element that closes the modal
