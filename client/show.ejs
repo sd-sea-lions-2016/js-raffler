@@ -31,6 +31,13 @@
 <% } %>
 
 
-<form action="/raffles" method="get">
-  <input type="submit" name="submit" value="Exit Raffle">
-</form>
+<% if (raffle.active) { %>
+  <form action="/raffles/<%= raffle.id %>/end" method="post">
+    <input type="submit" name="submit" value="End Raffle">
+  </form>
+<% } else { %>
+  <form action="/raffles" method="get">
+    <input type="submit" name="submit" value="Exit Raffle">
+  </form>
+<% } %>
+
