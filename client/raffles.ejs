@@ -25,14 +25,14 @@
       <tr class="table-shadow">
         <th>ID</th>
         <th>Past Raffles</th>
-        <th>Winner</th>
+        <th>Active</th>
       </tr>
 
       <% for ( var i = raffles.length - 1; i >= 0; i--) { %>
       <tr class="login-container">
         <td><%= raffles[i].id %></td>
         <td><a href="/raffles/<%= raffles[i].id %>"><%= raffles[i].date.toLocaleString() %></a></td>
-        <td><%#= raffles[i].entrants() %></td>
+        <td><%= raffles[i].active %></td>
       </tr>
       <% } %>
     </table>
