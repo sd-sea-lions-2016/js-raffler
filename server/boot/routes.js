@@ -30,26 +30,23 @@ module.exports = function(app) {
     });
   });
 
-  router.post(/^\/raffles\/\w+\/end/, function(req, res) {
+  router.post('/raffles/:id/end', function(req, res) {
     console.log("Inside router.post /raffles/:id/end");
-    var re = /raffles\/(\w+)\/end/;
-    var id = req.url.match(re)[1];
+    var id = req.params.id;
     var Raffle = app.models.raffle;
     Raffle.end_raffle(id, res);
   });
 
-  router.get(/^\/raffles\/\w+\/run$/, function(req, res) {
+  router.get('/raffles/:id/run', function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\w+)/;
-    var id = req.url.match(re)[1];
+    var id = req.params.id;
     var Raffle = app.models.raffle;
     Raffle.run_raffle(id, res);
   });
 
-  router.get(/^\/raffles\/\w+\/?$/, function(req, res) {
+  router.get('/raffles/:id', function(req, res) {
     console.log("inside router.get /raffles/:id");
-    var re = /raffles\/(\w+)/;
-    var id = req.url.match(re)[1];
+    var id = req.params.id;
     var Raffle = app.models.raffle;
     Raffle.render_raffle(id, res);
   });
