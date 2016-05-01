@@ -1,18 +1,10 @@
 module.exports = function(app) {
   var router = app.loopback.Router();
+  var Raffle = app.models.raffle;
 
+// ROOT //////////////////////////////////////
   router.get('/', function(req, res) {
     console.log("Inside router.get /");
-
-    res.render('index', {
-      loginFailed: false
-    });
-  });
-
-  router.get('/raffles', function(req, res) {
-    console.log("Inside router.get /raffles");
-
-    var Raffle = app.models.raffle;
 
     Raffle.find().then(function(raffles){
       res.render('raffles', {
@@ -21,10 +13,29 @@ module.exports = function(app) {
     });
   });
 
+// LOGIN //////////////////////////////////////
+  router.get('/login', function(req, res) {
+    console.log("Inside router.get /");
+
+    res.render('index', {
+      loginFailed: false
+    });
+  });
+
+// INDEX //////////////////////////////////////
+  router.get('/raffles', function(req, res) {
+    console.log("Inside router.get /raffles");
+
+    Raffle.find().then(function(raffles){
+      res.render('raffles', {
+        raffles: raffles
+      });
+    });
+  });
+
+// CREATE //////////////////////////////////////
   router.post('/raffles', function(req, res) {
     console.log("Inside router.post /raffles");
-
-    var Raffle = app.models.raffle;
 
     Raffle.create().then(function(raffle){
       // raffle is now active
@@ -35,11 +46,18 @@ module.exports = function(app) {
     });
   });
 
+// SHOW //////////////////////////////////////
+  router.get('/raffles/:id', function(req, res) {
+    console.log("inside router.get /raffles/:id");
+
+    var id = req.params.id;
+    Raffle.render_raffle(id, res);
+  });
+
   router.post('/raffles/:id/end', function(req, res) {
     console.log("Inside router.post /raffles/:id/end");
 
     var id = req.params.id;
-    var Raffle = app.models.raffle;
     Raffle.end_raffle(id, res);
   });
 
@@ -47,68 +65,25 @@ module.exports = function(app) {
     console.log("inside router.get /raffles/:id/run");
 
     var id = req.params.id;
-    var Raffle = app.models.raffle;
     Raffle.run_raffle(id, res);
   });
 
-  router.get('/raffles/:id', function(req, res) {
-    console.log("inside router.get /raffles/:id");
-
-    var id = req.params.id;
-    var Raffle = app.models.raffle;
-    Raffle.render_raffle(id, res);
-  });
-
-  router.post('/login', function(req, res) {
-    console.log("inside router.post /login");
-
-    var email = req.body.email;
-    var password = req.body.password;
-    var Raffle = app.models.raffle;
-
-    app.models.User.login({
-      email: email,
-      password: password
-    }, 'user', function(err, token) {
-      if (err)
-        return res.render('index', {
-          email: email,
-          password: password,
-          loginFailed: true
-        });
-
-      token = token.toJSON();
-
-      Raffle.find().then(function(result){
-        console.log(result);
-
-        res.render('raffles', {
-          raffles: result,
-          username: token.user.username,
-          accessToken: token.id
-        });
-      });
-
-    });
-  });
-
+// NEW ENTRANT //////////////////////////////////////
   router.get('/register', function(req, res) {
     console.log("inside router.get /register");
 
-    var Raffle = app.models.raffle;
-    Raffle.findOne({where: {"active": true}}).then(function(raffle){
+    getActiveRaffle().then(function(raffle){
         res.render('public_registration', {
           raffle: raffle
         });
     }).catch(function(err) { console.log("No active raffles"); });
   });
 
+// CREATE ENTRANT //////////////////////////////////////
   router.post('/register', function(req, res) {
     console.log("inside router.post /register");
 
-    var Raffle = app.models.raffle;
-
-    Raffle.findOne({where: {"active": true}}).then(function(raffle){
+    getActiveRaffle().then(function(raffle){
       if (raffle){
         console.log("Active raffle found");
         if ( req.body.Body ) {
@@ -151,6 +126,43 @@ module.exports = function(app) {
     }); // end Raffle.findOne
   });
 
+// CREATE SESSION //////////////////////////////////////
+  router.post('/login', function(req, res) {
+    console.log("inside router.post /login");
+
+    var email = req.body.email;
+    var password = req.body.password;
+
+    app.models.User.login({
+      email: email,
+      password: password
+    }, 'user', function(err, token) {
+      if (err)
+      console.log(err.statusCode);
+      console.log(err.code);
+      return res.render('index', {
+        email: email,
+        password: password,
+        loginFailed: true,
+        statusCode: err.statusCode,
+        code: err.code
+      });
+
+      token = token.toJSON();
+
+      Raffle.find().then(function(result){
+        console.log(result);
+
+        res.render('raffles', {
+          raffles: result,
+          username: token.user.username,
+          accessToken: token.id
+        });
+      });
+    });
+  });
+
+// DESTROY SESSION //////////////////////////////////////
   router.get('/logout', function(req, res) {
     console.log("inside router.get /logout");
 
@@ -162,4 +174,12 @@ module.exports = function(app) {
   });
 
   app.use(router);
+
+// HELPER FUNCTIONS //////////////////////////////////////
+
+  function getActiveRaffle(){
+    var Raffle = app.models.raffle;
+    return Raffle.findOne({where: {"active": true}})
+  };
+
 };
