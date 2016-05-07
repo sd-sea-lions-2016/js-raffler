@@ -24,6 +24,4 @@ module.exports = function(Entrant) {
   Entrant.disableRemoteMethod('__get__accessTokens', false);
   Entrant.disableRemoteMethod('__updateById__accessTokens', false);
 
-
-
 };

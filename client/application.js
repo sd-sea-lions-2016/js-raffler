@@ -20,7 +20,7 @@ $(function(){
     })
       .done(function(response){
         console.log(response);
-        $('#entrants-list').prepend("<li>" + response.username + "</li>");
+        $('#raffle-list').prepend("<tr class='raffle-list-item'><td class='raffle-info'>" + response.username + "</td></tr>");
         $('.entrants').show();
         $('#new-entrant-form').trigger('reset');
       });
@@ -44,7 +44,7 @@ $('#public-registration-form').submit(function(event){
     .done(function(response){
       console.log(response);
       $('#public-registration-form').remove();
-      $('#public-registration-container').html("<div class='login-triangle'></div><h2 class='login-header'>Register for Raffle</h2><p style='background: white'>Your confirmation number is: <br>" + response.id + "</p></div>");
+      $('#public-registration-container').html("<div class='login-triangle'></div><h2 class='login-header'>Register for Raffle</h2><p style='background: white'>Your ticket number is: " + response.id.split('').splice(0,6).join('') + "</p></div>");
       $('.login-header').html("Registered for Raffle");
     })
     .fail(function(response){

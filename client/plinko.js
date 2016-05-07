@@ -118,7 +118,7 @@ $( document ).ready(function() {
 
             // Get the modal
             var modal = document.getElementById('myModal');
-            $('#message_winner').html(winner.username +' has won!\n\n\nTicket# '+winner.id.split('').splice(0,6).join(''));
+            $('#message_winner').html('<p>' + winner.username + ' has won!</p><p>Ticket#' + winner.id.split('').splice(0,6).join('') + '</p>');
             modal.style.display = "block";
 
             // Get the <span> element that closes the modal
@@ -174,4 +174,3 @@ RaffleDBConnector.prototype.setWinner = function(winner){
       alert("DB error: " + err.statusText + ": " + err.responseText);
     });
 };
-
