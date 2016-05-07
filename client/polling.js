@@ -12,9 +12,9 @@ function updateEntrantsList(){
     .done(function(response){
       console.log(response);
       var entrants = response;
-      $('#entrants-list').html('');
+      $('#raffle-list').html('');
       for (var i = 0; i < entrants.length; i++) {
-        $('#entrants-list').prepend("<li>" + entrants[i].username + "</li>");
+        $('#raffle-list').prepend("<tr class='raffle-list-item'><td class='raffle-info'>" + entrants[i].username + "</td></tr>");
       }
     });
 }

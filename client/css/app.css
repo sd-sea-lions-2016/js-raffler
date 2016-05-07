@@ -16,23 +16,30 @@ h1 {
   font-size: 100px
 }
 
+h2 {
+  text-align: center;
+  text-shadow: 2px 2px 8px #c8c9c0;
+  font-size: 70px
+}
+
 h3 {
   text-align: center;
   font-family: 'Lato';
   text-shadow: 2px 2px 8px #c8c9c0;
   font-size: 65px;
+  margin: 0;
 }
 
 h4 {
   text-align: center;
   font-family: 'Lato';
-  /*text-shadow: 2px 2px 8px #c8c9c0;*/
   font-size: 40px;
 }
 
 body {
   background: transparent;
   font-family: 'Lato';
+  text-align: center;
 }
 
 .hidden {
@@ -40,17 +47,21 @@ body {
 }
 
 .login {
+  width: 400px;
+  margin: 50px auto;
+  font-size: 16px;
+}
+
+.raffle-list {
   padding-top: -100px;
   width: 400px;
   margin: 50px auto;
   font-size: 16px;
-  /*margin-bottom: 1000px;*/
-
-
 }
 
-#login {
-  padding-top: 120px;
+.raffle-info {
+  background-color: white;
+  padding: 10px;
 }
 
 .login-header,
@@ -80,7 +91,6 @@ body {
 .login-container {
   background: #ebebeb;
   padding: 12px;
-  margin-bottom: 100px
 }
 
 /* Every row inside .login-container is defined with p tags */
@@ -113,6 +123,8 @@ body {
   border-color: #888;
 }
 
+
+/**************************************************************/
 .login input[type="submit"] {
   background: #28d;
   border-color: transparent;
@@ -128,6 +140,37 @@ body {
 .login input[type="submit"]:focus {
   border-color: #05a;
 }
+/**************************************************************/
+
+.default-btn:hover {
+  background: #17c;
+}
+
+/* Buttons' focus effect */
+.default-btn:focus {
+  border-color: #05a;
+}
+
+.default-btn {
+  background: #28d;
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+  width: 400px;
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+/**************************************************************/
 
 .center {
   text-align: center;
@@ -137,36 +180,24 @@ li {
   list-style: none;
 }
 
-/*MODAL*/
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 20%; /* Full width */
-    height: 50%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0); /* Black w/ opacity */
-    padding-left: 42%;
-    padding-bottom: 22%;
-
-}
-
 .nametext {
   transform: rotate(90deg) translateY(-40px);
   transform-origin: left top 0;
   background-color: #ffffe6;
-  /*padding: 19px;*/
-  /*max-width: 20px;*/
-  /*padding-bottom: 80px;*/
 }
 
-/*#fixed-row {
-position:fixed;
-bottom: 200px;
-}*/
+/*MODAL*/
+.modal {
+    display: none; /* Hidden by default */
+    z-index: 1; /* Sit on top */
+    position: fixed;
+    left: 10%;
+    right: 10%;
+    bottom: 550px;
+    height: 50%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0); /* Black w/ opacity */
+}
 
 /* Modal Content/Box */
 .modal-content {
@@ -174,7 +205,6 @@ bottom: 200px;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid black;
-    width: 80%; /* Could be more or less, depending on screen size */
     border-radius: 20px;
 }
 

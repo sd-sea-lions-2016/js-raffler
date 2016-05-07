@@ -17,7 +17,7 @@ module.exports = function(app) {
   router.get('/login', function(req, res) {
     console.log("Inside router.get /");
 
-    res.render('index', {
+    res.render('login', {
       loginFailed: false
     });
   });
@@ -116,7 +116,7 @@ module.exports = function(app) {
           raffle.entrants.create({"username": req.body.username}, function(err,entrant){
             console.log(err);
             console.log(entrant);
-            res.send(entrant);
+            res.send(entrant.displayTicketNumber());
           });
         }
       } else {
@@ -149,7 +149,7 @@ module.exports = function(app) {
           code: err.code
         });
       }
-      
+
       token = token.toJSON();
 
       Raffle.find().then(function(result){
