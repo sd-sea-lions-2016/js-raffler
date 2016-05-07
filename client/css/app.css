@@ -38,7 +38,7 @@ h4 {
 
 body {
   background: transparent;
-  font-family: 'Lato';
+  font-family: 'Lato', 'Arial', 'Helvetica' ;
   text-align: center;
 }
 
