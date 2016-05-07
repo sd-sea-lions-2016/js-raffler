@@ -27,15 +27,19 @@
     </table>
 
     <% if (raffle.active == true) { %>
-
       <form class="login" action="/raffles/<%= raffle.id %>/end" method="post">
         <input type="submit" name="submit" value="End Raffle">
       </form>
-
     <% } else { %>
+<<<<<<< HEAD
+      <form class="login" action="/raffles" method="get">
+        <input type="submit" name="submit" value="Exit Raffle">
+      </form>
+=======
 
       <a class="default-btn" href="/raffles">Exit Raffle</a>
 
+>>>>>>> release/0.7.0
     <% } %>
   </body>
 </html>
