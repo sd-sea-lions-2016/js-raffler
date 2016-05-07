@@ -137,17 +137,19 @@ module.exports = function(app) {
       email: email,
       password: password
     }, 'user', function(err, token) {
-      if (err)
-      console.log(err.statusCode);
-      console.log(err.code);
-      return res.render('index', {
-        email: email,
-        password: password,
-        loginFailed: true,
-        statusCode: err.statusCode,
-        code: err.code
-      });
+      if (err) {
+        console.log(err.statusCode);
+        console.log(err.code);
 
+        return res.render('index', {
+          email: email,
+          password: password,
+          loginFailed: true,
+          statusCode: err.statusCode,
+          code: err.code
+        });
+      }
+      
       token = token.toJSON();
 
       Raffle.find().then(function(result){
