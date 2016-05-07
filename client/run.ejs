@@ -44,7 +44,7 @@
       <% } %>
       <tr id='fixed-row' class="name_row">
       <% for(var i = 0; i < numContestants; i++){ %>
-      <td colspan="2" class="nametext" username="<%= entrants[i].username %>" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,10).join(''); %></td>
+      <td colspan="2" class="nametext" username="<%= entrants[i].username %>" id="<%= entrants[i].id %>"><%= entrants[i].username.split('').splice(0,4).join(''); %></td>
       <% } %>
       </tr>
     </table>
