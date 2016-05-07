@@ -2,24 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-  <script src="https://code.jquery.com/jquery-2.2.3.js" integrity="sha256-laXWtGydpwqJ8JA+X9x2miwmaiKhn8tVmOVEigRNtP4=" crossorigin="anonymous"></script>
-    <script src="/application.js"></script>
-    <script type="text/javascript" src="/plinko.js" defer></script>
     <link rel="stylesheet" type="text/css" href="/css/app.css">
     <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <title>JS Raffler</title>
   </head>
   <body>
+
 <!-- <h4>Raffle #: <%= raffle.id %></h4> -->
 <h4>Date: <span><%= raffle.date.toLocaleString() %></span></h4>
 
 <% if (previous_winners && previous_winners.length > 0) { %>
-  <h3>Winners Circle:</h3>
-  <ul class="center">
+  <h3>Winners Circle</h3>
+
+  <table class="raffle-list" id="raffle-list">
+    <tr class="raffle-list-item"><th class="raffle-info">Name</th><th class="raffle-info">Ticket#</th></tr>
     <% for ( var i = 0; i < previous_winners.length; i++) { %>
-      <li class="entrants_list"><%= previous_winners[i].username %> | Ticket# <%= previous_winners[i].id.split('').splice(0,6).join('') %></li>
+      <tr class="raffle-list-item">
+        <td class="raffle-info"><%= previous_winners[i].username %></td>
+        <td class="raffle-info"><%= previous_winners[i].id.split('').splice(0,6).join('') %></td>
+      </tr>
     <% } %>
-  </ul>
+  </table>
+
 <% } else { %>
   <h3>No winners</h3>
 <% } %>
@@ -29,8 +33,7 @@
     <input type="submit" name="submit" value="End Raffle">
   </form>
 <% } else { %>
-  <form action="/raffles" method="get" class="login">
-    <input type="submit" name="submit" value="Exit Raffle">
-  </form>
-<% } %>
 
+  <a class="default-btn" href="/raffles">Exit Raffle</a>
+
+<% } %>
